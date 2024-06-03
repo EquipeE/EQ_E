@@ -1,0 +1,65 @@
+body {
+    background-color: rgb(93, 206, 13); /* Define a cor de fundo para laranja */
+    margin: 0; /* Remove margens ao redor do corpo */
+    padding: 0; /* Remove preenchimento ao redor do corpo */
+}
+
+nav {
+    background-color: #368d0e; /* Define a cor de fundo do elemento nav para cinza escuro */
+    display: flex;
+    justify-content: space-between; /* Alinha os itens do navbar ao longo do eixo x com espaço entre eles */
+    align-items: center; /* Centraliza verticalmente os itens do navbar */
+    padding: 0.5rem;
+}
+
+nav ul {
+    width: 100vw;
+    list-style-type: none; /* Remove os marcadores de lista padrão */
+    margin: 0; /* Remove margens da lista */
+    padding: 0; /* Define o preenchimento da lista (deveria ser 'padding: 0;' ou 'padding: 10px;' para definir um preenchimento de 10 pixels) */
+    display: flex; /* Adiciona um layout flexível ao elemento ul */
+    justify-content: flex-end;/* Alinha os itens da lista à direita */
+    margin-left: 1rem; /* Adiciona um espaço entre os itens */
+}
+
+nav ul li {
+    display: inline; /* Faz com que os itens da lista sejam exibidos em linha */
+}
+
+nav ul li:first-child {
+    margin-left: 10; /* Remove a margem esquerda do primeiro item */
+}
+
+nav ul li a {
+    display: block; /* Define os links como elementos de bloco */
+    padding: 10px; /* Adiciona preenchimento aos links */
+    text-decoration: none; /* Remove sublinhado dos links */
+    color: white; /* Define a cor do texto dos links como branco */
+}
+
+nav ul li a:hover {
+    background-color: #555; /* Muda a cor de fundo dos links quando o mouse está sobre eles */
+}
+
+#logo {
+    max-height: 50px; /* Define a altura máxima da logomarca */
+    margin-left: 10px; /* Adiciona um espaço entre a logomarca e os itens do menu */
+    margin-right: 1rem;
+}
+
+/* TODO: mudar a gambiarra abaixo */
+#titulo-nav {
+	width: 125ch;
+}
+
+img {
+    display: block; /* Define as imagens como elementos de bloco */
+    margin: auto; /* Centraliza as imagens horizontalmente */
+}
+
+footer {
+    background-color: rgb(61, 154, 38); /* Define a cor de fundo do rodapé como preto */
+    color: white; /* Define a cor do texto como branco */
+    padding: 20px; /* Adiciona um espaçamento interno ao rodapé */
+    text-align: center; /* Centraliza o texto no rodapé */
+}
