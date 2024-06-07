@@ -6,6 +6,8 @@ body {
 
 nav {
     background-color: #9cb992    ; /* Define a cor de fundo do elemento nav para cinza escuro */
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between; /* Alinha os itens do navbar ao longo do eixo x com espaço entre eles */
     align-items: center; /* Centraliza verticalmente os itens do navbar */
@@ -31,11 +33,19 @@ nav ul li:first-child {
     margin-left: 10; /* Remove a margem esquerda do primeiro item */
 }
 
+nav ul li:last-child {
+    margin-right: 0.215em;
+}
+
 nav ul li a {
     display: block; /* Define os links como elementos de bloco */
     padding: 10px; /* Adiciona preenchimento aos links */
     text-decoration: none; /* Remove sublinhado dos links */
     color: white; /* Define a cor do texto dos links como branco */
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    margin-left: 1em;
+    min-width: 6ch;
+    text-align: center;
 }
 
 nav ul li a:hover {
@@ -44,8 +54,8 @@ nav ul li a:hover {
 
 #logo {
     max-height: 50px; /* Define a altura máxima da logomarca */
-    margin-left: 10px; /* Adiciona um espaço entre a logomarca e os itens do menu */
-    margin-right: 1rem;
+    margin-left: 1.15em; /* Adiciona um espaço entre a logomarca e os itens do menu */
+    margin-right: 1.5em;
 }
 
 /* TODO: mudar a gambiarra abaixo */
