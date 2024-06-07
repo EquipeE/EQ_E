@@ -69,7 +69,17 @@ nav ul li a:hover {
     margin: auto; /* Centraliza as imagens horizontalmente */
     width: 85vw;
     margin-top: 4rem;
+    margin-bottom: 4rem;
     border: 3px solid black;
+}
+
+video {
+    display: block;
+    margin: auto;
+    border: 5px solid black;
+    border-width: 0.3em 15em 0.3em 15em;
+    max-width: 20vw;
+    height: 50vh;
 }
 
 footer {
