@@ -81,6 +81,7 @@ nav ul li a:hover {
 video {
     display: block;
     margin: auto;
+    margin-bottom: 2em;
     z-index: -1;
     border: 5px solid black;
     border-width: 0.3em 15em 0.3em 15em;
@@ -103,9 +104,13 @@ video {
     width: 250px;
 }
 
-#projeto {
+article {
+    margin-bottom: 10em;
+}
+
+article p {
     display: block;
-    margin: auto;
+    margin: 1em auto 1em auto;
     width: 85vw;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
@@ -114,7 +119,7 @@ video {
 
 footer {
     justify-content: center;
-    margin-top: 1em;
+    margin-top: 4em;
     color: white; /* Define a cor do texto como branco */
     padding: 20px; /* Adiciona um espaçamento interno ao rodapé */
     text-align: center; /* Centraliza o texto no rodapé */
