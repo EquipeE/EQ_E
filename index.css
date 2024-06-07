@@ -4,15 +4,19 @@ body {
     padding: 0; /* Remove preenchimento ao redor do corpo */
 }
 
-nav {
-    background-color: #9cb992    ; /* Define a cor de fundo do elemento nav para cinza escuro */
-    position: sticky;
-    top: 0;
+nav, footer {
+    background-color: #9cb992;
     display: flex;
     justify-content: space-between; /* Alinha os itens do navbar ao longo do eixo x com espaço entre eles */
     align-items: center; /* Centraliza verticalmente os itens do navbar */
     padding: 0.5rem;
     max-height: 50px;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
 nav ul {
@@ -50,9 +54,10 @@ nav ul li a {
 
 nav ul li a:hover {
     background-color: #555; /* Muda a cor de fundo dos links quando o mouse está sobre eles */
+    border-bottom: 2px solid white;
 }
 
-#logo {
+.logo {
     max-height: 50px; /* Define a altura máxima da logomarca */
     margin-left: 1.15em; /* Adiciona um espaço entre a logomarca e os itens do menu */
     margin-right: 1.5em;
@@ -76,6 +81,7 @@ nav ul li a:hover {
 video {
     display: block;
     margin: auto;
+    z-index: -1;
     border: 5px solid black;
     border-width: 0.3em 15em 0.3em 15em;
     max-width: 20vw;
@@ -107,8 +113,8 @@ video {
 }
 
 footer {
+    justify-content: center;
     margin-top: 1em;
-    background-color: black; /* Define a cor de fundo do rodapé como preto */
     color: white; /* Define a cor do texto como branco */
     padding: 20px; /* Adiciona um espaçamento interno ao rodapé */
     text-align: center; /* Centraliza o texto no rodapé */
