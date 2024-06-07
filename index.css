@@ -69,7 +69,7 @@ nav ul li a:hover {
     margin: auto; /* Centraliza as imagens horizontalmente */
     width: 85vw;
     margin-top: 4rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     border: 3px solid black;
 }
 
@@ -82,10 +82,34 @@ video {
     height: 50vh;
 }
 
+.imagens {
+    display: flex;
+    margin: auto;
+    width: 85vw;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 2em;
+    margin-top: 1em;
+}
+
+.graf {
+    height: 200px;
+    width: 250px;
+}
+
+#projeto {
+    display: block;
+    margin: auto;
+    width: 85vw;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.25em;
+}
+
 footer {
-    background-color: rgb(61, 154, 38); /* Define a cor de fundo do rodapé como preto */
+    margin-top: 1em;
+    background-color: black; /* Define a cor de fundo do rodapé como preto */
     color: white; /* Define a cor do texto como branco */
     padding: 20px; /* Adiciona um espaçamento interno ao rodapé */
     text-align: center; /* Centraliza o texto no rodapé */
 }
-
