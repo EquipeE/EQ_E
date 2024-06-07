@@ -1,0 +1,36 @@
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+nav ul {
+    width: 100vw;
+    list-style-type: none;
+    margin: 0;
+    padding: 0; 
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    margin-left: 1rem;
+}
+
+nav ul li:last-child {
+    margin-right: 1.5em;
+}
+
+nav ul li a {
+    display: block; 
+    color: white;
+    padding: 1em;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    margin-left: 1em;
+    min-width: 6ch;
+    text-align: center;
+}
+
+nav ul li a:hover {
+    background-color: #555; /* Muda a cor de fundo dos links quando o mouse está sobre eles */
+    border-bottom: 2px solid white;
+}
