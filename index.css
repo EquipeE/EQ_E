@@ -1,11 +1,11 @@
 body {
-    background-color: rgb(93, 206, 13); /* Define a cor de fundo para laranja */
+    background-color: #e1ebe5    ; /* Define a cor de fundo para laranja */
     margin: 0; /* Remove margens ao redor do corpo */
     padding: 0; /* Remove preenchimento ao redor do corpo */
 }
 
 nav {
-    background-color: #368d0e; /* Define a cor de fundo do elemento nav para cinza escuro */
+    background-color: #9cb992    ; /* Define a cor de fundo do elemento nav para cinza escuro */
     display: flex;
     justify-content: space-between; /* Alinha os itens do navbar ao longo do eixo x com espaço entre eles */
     align-items: center; /* Centraliza verticalmente os itens do navbar */
