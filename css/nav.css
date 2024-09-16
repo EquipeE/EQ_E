@@ -1,0 +1,115 @@
+@media (min-height:800px){
+    .drop:hover .conteudo{
+        width: 70px;
+    }
+    .drop:hover .conteudo li a{
+        font-size: smaller;
+    }
+}
+
+@media (max-height:600px) {
+    #logo {
+        min-width: 15vh;
+        min-height: 15vh;
+    }
+    nav ul li a {
+        font-size: larger;
+    }
+    .drop:hover .conteudo{
+        min-width: 87px;
+    }
+}
+
+@media (max-height:500px) {
+    #logo {
+        min-width: 20vh;
+        min-height: 20vh;
+    }
+}
+
+@media (min-height:1000px){
+    nav ul li a {
+        font-size: x-large;
+    }
+    .drop:hover .conteudo{
+        min-width: 96px;
+    }
+    .drop:hover .conteudo li a{
+        font-size: 22px;
+    }
+}
+
+nav {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #7094b6b6;
+    padding: 0.5em 0 0.5em 0;
+    backdrop-filter: blur(15px);
+}
+
+#logo {
+    height: 7vh;
+    width: 7vh;
+    border-right: 1px solid white;
+    padding-right: 1rem;
+    margin-right: 1.5rem;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; 
+}
+
+.menu {
+	position: relative;
+}
+
+.conteudo {
+    display: none;
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+
+}
+
+.conteudo li a{
+    color: rgba(0, 0, 0, 0.678);
+}
+
+.drop:hover .conteudo {
+    display: block;
+    background-color: white;
+    max-width: 78px;
+}
+
+.drop:hover .conteudo li a{
+    padding: 2px 15px 2px 15px;
+    max-width: 10px;
+    border: none;
+}
+
+.drop:hover .conteudo li a:hover{
+    background-color: rgba(0, 0, 0, 0.24);
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    display: block; 
+    color: white;
+    margin-right: 1em;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    text-align: center;
+    min-width: 6ch;
+}
+
+nav ul li a:hover {
+    border-bottom: 2px solid white;
+}

@@ -1,0 +1,146 @@
+body {
+    background: 
+            url(./../img/back.png)
+            no-repeat
+            top left / cover
+    ;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-height:2460px) {
+    body {
+        background-size: 100% 400%;
+    }
+}
+
+@media (max-height:1920px) {
+    body {
+        background-size: 100% 300%;
+    }
+}
+
+@media (max-height:1370px) {
+    body {
+        background-image: url(./../img/back.png);
+        background-size: 100% 222%;
+    }
+}
+
+@media (max-height:770px) {
+    body {
+        background-image: url(./../img/back.png);
+        background-size: 100% 130%;
+    }
+
+@media (max-height:1000px){
+    body {
+        background-image: url(./../img/back.png);
+        background-size: 100% 160%;
+    }
+}
+
+h1{
+    font-family: sans-serif;
+    color: white;
+    text-shadow: 1px 1px 2.5px black;
+}
+
+.form-group input {
+    border-radius: 10px;
+    width: 90%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.637);
+    color: black;
+    border: solid black 1px;
+}
+
+.form-group input::placeholder {
+    font-size: larger;
+}
+
+.form-group input:hover {
+    box-shadow: rgba(0,0,0, 0.15) 0px 0px 0px 2px;
+}
+
+.form-group input[type="submit"]{
+    width: 95%;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgba(0, 167, 50, 0.719) 50%, rgba(255, 255, 255, 0.87) 50%);
+    background-size: 210%;
+    background-position: right;
+    color: black;
+    transition: background-position 500ms ease-in-out, color 500ms;
+}
+
+.form-group input[type="submit"]:hover {
+    color: white;
+    box-shadow: none;
+    background-position: left;
+}
+
+.form-group {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#container {
+    display: block;
+    margin: 3rem auto auto auto;
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    width: 70vw;
+    max-width: 600px;
+    box-shadow: rgba(0,0,0, 0.15) 0px 1px 0px 2.5px;
+    box-sizing: border-box;
+    border-radius: 17px;
+}
+.password-container {
+    width: 99%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#senha, #confsenha {
+    width: 85%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+.eye {
+    cursor: pointer;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.479);
+    background-color: rgba(255, 255, 255, 0.637);
+    padding: 2px 4px 6px 4px;
+    border: solid black 1px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: none;
+}
+
+.eye:hover {
+    color: white;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.459), rgba(0, 0, 0, 0.733));
+}
+
+.mensagem-sucesso {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+    border-radius: 4px;
+    text-align: center;
+}

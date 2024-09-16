@@ -4,19 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M-redes</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="website icon" type="img" href="./img/logo.png">
 </head>
 <body>
     <nav>
-        <img id="logo" alt="Logo" src="./img/logo.png">
-        <ul>
-            <li><a id="current_page" href="">Home</a></li>
+	<a href='./index.html'><img id="logo" alt="Logo" src="img/logo.png"></a>
+        <ul class="menu">
             <li><a href="">Sobre</a></li>
             <li><a href="">Blog</a></li>
-            <li><a href="">Login</a></li>
-            <li><a href="">Cadastro</a></li>
+            <li class="drop">
+                <a href="#">Conta</a>
+                <ul class="conteudo">
+                    <li><a href="">Login</a></li>
+                    <li><a href="./html/cadastro.html">Cadastro</a></li>
+                </ul>    
+            </li>
         </ul>
-    </nav>
+    </nav><br>
+
     <div id="carrossel"></div>
     <main id="cards_container">
 	    <div id="left_cards">
