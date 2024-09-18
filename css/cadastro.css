@@ -22,20 +22,18 @@ body {
 
 @media (max-height:1370px) {
     body {
-        background-image: url(./../img/back.png);
         background-size: 100% 222%;
     }
 }
 
 @media (max-height:770px) {
     body {
-        background-image: url(./../img/back.png);
         background-size: 100% 130%;
     }
+}
 
 @media (max-height:1000px){
     body {
-        background-image: url(./../img/back.png);
         background-size: 100% 160%;
     }
 }
