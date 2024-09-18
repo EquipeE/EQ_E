@@ -7,6 +7,43 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="website icon" type="img" href="./img/logo.png">
+    <style>
+        #carrossel {
+            position: relative;
+            margin: auto;
+            width: 100%;
+            max-width: 1350px; /* Defina o tamanho desejado */
+            overflow: hidden;
+            background-color: red;
+        }
+        .slides {
+            display: flex;
+            /*width: 400%; 100% para cada slide (4 slides) */
+            animation: slide 12s infinite;
+        }
+        .slide {
+            width: 100%; /* Cada slide ocupa 100% do carrossel */
+            flex: 0 0 auto; /* Impede o flex de encolher */
+            position: relative; /* Para posicionamento da imagem */
+            height: 400px; /* Defina a altura desejada */
+        }
+        .slide img {
+            height: 100%; /* Preenche toda a altura do slide */
+            object-fit: contain; /* Ajusta a imagem sem cortar */
+            display: block; /* Remove espaço embaixo da imagem */
+            position: absolute; /* Para preencher o slide */
+            top: 50%; /* Centraliza verticalmente */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translate(-50%, -50%); /* Ajusta a posição */
+        }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-100%); }
+            50% { transform: translateX(-100%); }
+            75% { transform: translateX(-200%); }
+            100% { transform: translateX(-300%); }
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -25,7 +62,15 @@
         </ul>
     </nav><br>
 
-    <div id="carrossel"></div>
+    <div id="carrossel">
+        <div class="slides">
+            <div class="slide"><img src="./img/art2.png" alt="Artwork 2"></div>
+            <div class="slide"><img src="./img/art3.png" alt="Artwork 3"></div>
+            <div class="slide"><img src="./img/TESTE_CARROSSEL.png" alt="Artwork 1"></div>
+            <div class="slide"><img src="./img/art4.png" alt="Artwork 4"></div>
+        </div>
+    </div>
+
     <main id="cards_container">
             <div class="card"><img src="./img/art1.png"><div class="card-text">Texto 1</div></div>
             <div class="card"><img src="./img/art3.png"><div class="card-text">Texto 3</div></div>
