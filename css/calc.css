@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    
+}
+
+h1{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.calculadora {
+    border: solid black 2px;
+    border-radius: 10px;
+    
+}
+
+.dados {
+    margin: 10px;
+}
+
+.dados input[type="number"] {
+    width: 50%;
+    padding: 10px;
+    border: solid black 1px;
+    border-radius: 10px;
+}
+
+#botao {
+    display: flex;
+    justify-content: flex-start;
+    border: solid black 1px;
+    border-radius: 20px;
+    background-color: rgb(32, 103, 255);
+    color: white;
+    width: 30%;
+    padding: 5px;
+}
