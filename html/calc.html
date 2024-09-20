@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M-redes</title>
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/calc.css">
+    <link rel="website icon" type="img" href="../img/logo.png">
+</head>
+
+<body>
+    <nav>
+        <a href='./index.html'><img id="logo" alt="Logo" src="../img/logo.png"></a>
+        <ul class="menu">
+            <li><a href="">Sobre</a></li>
+            <li><a href="">Blog</a></li>
+            <li class="drop">
+                <a href="#">Conta</a>
+                <ul class="conteudo">
+                    <li><a href="">Login</a></li>
+                    <li><a href="./html/cadastro.html">Cadastro</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav><br>
+
+    <h1>Calculadora </h1>
+    <div class="container">
+        <form class="calculadora" action="./../php/calc.php" method="POST">
+            <div class="dados">
+                <h3>Quanto de energia estima gerar:</h3>
+                <input type="text" name="gerada" id="" placeholder="Energia gerada">
+                <h3>Quanto de energia média consome diariamente:</h3>
+                <input type="number" name="consumo" id="" placeholder="Energia consumida">
+                <h3>Como é o lugar onde vives?</h3>
+
+                <input type="checkbox" name="local[]" value="vento" id="vento">
+                <label for="vento">Muito vento</label>
+                <input type="checkbox" name="local[]" value="sol" id="sol">
+                <label for="sol">Muito sol</label>
+                <input type="checkbox" name="local[]" value="chuva" id="chuva">
+                <label for="chuva">Muita chuva</label>
+                <input type="checkbox" name="local[]" value="rio" id="rio">
+                <label for="rio">Proximo a um rio</label>
+
+                <h3>Como é a sua moradia?</h3>
+                <input type="radio" name="moradia" value="casa_urbana" id="urbana">
+                <label for="urbana">Casa urbana</label>
+                <input type="radio" name="moradia" value="casa_rural" id="rural">
+                <label for="rural">Casa rural</label>
+                <input type="radio" name="moradia" value="apartamento" id="apartamento">
+                <label for="apartamento">Apartamento</label>
+                <br>
+                <br>
+
+                <input type="submit" id="botao" value="Calcular">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
