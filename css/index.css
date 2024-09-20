@@ -4,13 +4,6 @@ body {
     background-color: #f4f4f4;
 }
 
-#carrossel {
-    margin: 3rem auto auto auto;
-    width: 90vw;
-    height: 40vh;
-    background-color: purple;
-}
-
 #cards_container {
     display: grid;
     grid-template-columns: 1fr 1fr;
