@@ -1,19 +1,3 @@
-function validacao() {
-    var senha = document.getElementById("senha").value;
-    var confsenha = document.getElementById("confsenha").value;
-    
-    if (senha !== confsenha) {
-            alert("As senhas estão diferentes")
-            return false
-    }
-    else if (confirm("Deseja prosseguir?")) {
-            return true
-    }
-    else { 
-        return false
-    }
-}
-
 var togglesenha = document.getElementById("togglesenha");
 var toggleconfsenha = document.getElementById("toggleconfsenha");
 
