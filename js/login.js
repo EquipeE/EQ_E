@@ -1,14 +1,8 @@
-var togglesenha = document.getElementById("togglesenha");
-var toggleconfsenha = document.getElementById("toggleconfsenha");
+function mudarVisibilidade(id) {
+	let campo = document.getElementById(id);
+	let typeAtual = campo.getAttribute("type");
+    	campo.setAttribute("type", (typeAtual === "password" ? "text" : "password"));
+}
 
-document.getElementById("togglesenha").addEventListener("click", function() {
-    var senha = document.getElementById("senha");
-    var type = senha.getAttribute("type") === "password" ? "text" : "password";
-    senha.setAttribute("type", type);
-})
-
-document.getElementById("toggleconfsenha").addEventListener("click", function() {
-    var senha = document.getElementById("confsenha");
-    var type = senha.getAttribute("type") === "password" ? "text" : "password";
-    senha.setAttribute("type", type);
-})
+document.getElementById("togglesenha").addEventListener("click", () => mudarVisibilidade("senha"));
+document.getElementById("toggleconfsenha").addEventListener("click", () => mudarVisibilidade("confsenha"));
