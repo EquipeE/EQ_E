@@ -1,10 +1,12 @@
 <?php
 
+define(MAX_NAME_LENGTH, 100);
+define(MAX_EMAIL_LENGTH, 100);
+
 $servidor = "localhost";
 $usuario = "root";
 $senha = "";
 $dbname = "mredes";
 
-$conexao = mysqli_connect($servidor,$usuario,$senha,$dbname);
-
+$conexao = new mysqli($servidor,$usuario,$senha,$dbname);
 ?>
