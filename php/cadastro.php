@@ -6,7 +6,7 @@ if (!isset($_POST['nome']) || !isset($_POST['email']) || !isset($_POST['senha'])
 
 include("db.php");
 
-if (strlen($_POST['nome']) > $MAX_NAME_LENGTH || strlen($_POST['email']) > $MAX_EMAIL_LENGTH)
+if (strlen($_POST['nome']) > MAX_NAME_LENGTH || strlen($_POST['email']) > MAX_EMAIL_LENGTH)
 	die("Seu nome e/ou email são muito longos, o limite é de {$MAX_EMAIL_LENGTH} caracteres.");
 
 $res = $conexao->execute_query("SELECT * FROM Usuarios WHERE email = ?", [$_POST['email']]);
