@@ -12,6 +12,8 @@ CREATE TABLE Usuarios(
 
 CREATE TABLE Posts(
     id INT AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL UNIQUE,
+    imagem VARCHAR(100) NOT NULL,
     conteudo TEXT NOT NULL,
     PRIMARY KEY(id)
 );
