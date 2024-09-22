@@ -33,18 +33,23 @@
     <section id="ultimas-postagens">
 	<h3>Ultimas postagens</h3>
 	<div id="cards-container">
-		<!--
-		<div class="card"><img src="./../img/posts/art2.png"><div class="card-text">Eis aqui um titulo de tamanho normal.</div></div>
-		<div class="card"><img src="./../img/posts/art3.png"><div class="card-text">Top 10 melhores opções de micro-redes atualmente.</div></div>
-		-->
 		<?php include("../php/posts/get_last_posts.php") ?>
 	</div>
     </section>
     <section id="comentarios-container">
 	<h3>Comentários</h3>
+	<?php //include("../php/comentarios/add_comment.php") ?>
+	<form action="../php/comentarios/add_comment.php" method="POST">
+	<textarea cols="40" rows="12" name="comment">Escreva aqui seu comentário.</textarea>
+	<input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
+	<input type="submit" value="Comentar">
+	</form>
 	<div id="comentarios">
+		<!--
 		<div class="comentario"><h4>Jonathan disse:</h4>Sei lá cara acho que tu devia se matar namoral, que texto bosta.</div>
 		<div class="comentario"><h4>Kaio disse:</h4>Top.</div>
+		-->
+		<?php include("../php/comentarios/get_post_comments.php") ?>
 	</div>
     </section>
 </body>
