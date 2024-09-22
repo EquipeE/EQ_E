@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] != "POST")
 if (!isset($_POST['nome']) || !isset($_POST['email']) || !isset($_POST['senha']))
 	die("Preencha todos os campos.\n");
 
-include("db.php");
+include(__DIR__ . "/db.php");
 
 if (strlen($_POST['nome']) > MAX_NAME_LENGTH || strlen($_POST['email']) > MAX_EMAIL_LENGTH)
 	die("Seu nome e/ou email são muito longos, o limite é de {$MAX_EMAIL_LENGTH} caracteres.");

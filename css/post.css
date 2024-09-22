@@ -7,7 +7,6 @@ body {
 #meta, main {
 	width: 80vw;
 	margin: auto;
-	background-color: green;
 	padding-bottom: 25px; 
 	border-bottom: 3px solid red;
 }
@@ -26,11 +25,7 @@ body {
 #ultimas-postagens, #comentarios-container {
 	margin: auto;
 	width: 80vw;
-	background-color: yellow;
 	text-align: center;
-}
-#ultimas-postagens {
-	background-color: yellow;
 }
 #cards-container, .card, #cards-container a {
 	display: flex;
@@ -65,9 +60,6 @@ body {
 }
 
 
-#comentarios-container {
-	background-color: lime;
-}
 #comentarios {
 	background-color: lightgray;
 	text-align: left;

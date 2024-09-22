@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] != "POST")
 if (!isset($_POST['email']) || !isset($_POST['senha']))
 	die("Preencha todos os campos.\n");
 
-include("db.php");
+include(__DIR__ . "/db.php");
 
 $res = $conexao->execute_query("SELECT senha, id FROM Usuarios WHERE email = ?", [$_POST['email']])->fetch_assoc();
 

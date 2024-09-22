@@ -1,5 +1,5 @@
 <?php
-include('../php/db.php');
+include(__DIR__ . '/../db.php');
 $res = $conexao->query("SELECT titulo, imagem, id FROM Posts ORDER BY id DESC LIMIT 2");
 
 if (!$res)

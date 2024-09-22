@@ -2,7 +2,7 @@
 if (!isset($_GET['id']))
 	die();
 
-include('../php/db.php');
+include(__DIR__ . '/../db.php');
 $res = $conexao->execute_query("SELECT Comentarios.conteudo as conteudo, Usuarios.nome as nome FROM Comentarios JOIN Usuarios ON Usuarios.id = Comentarios.id_usuario WHERE id_post = ? ORDER BY Comentarios.id DESC", [$_GET['id']]);
 
 if (!$res)
