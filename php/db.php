@@ -11,4 +11,6 @@ $senha = "";
 $dbname = "mredes";
 
 $conexao = new mysqli($servidor,$usuario,$senha,$dbname);
+if (!$conexao)
+	die("Erro ao abrir o banco.");
 ?>
