@@ -1,4 +1,10 @@
 <?php
+setcookie("test", "test", time() + 60);
+if (count($_COOKIE) === 0)
+	die("Habilite os cookies em seu navegador.");
+?>
+
+<?php
 if ($_SERVER['REQUEST_METHOD'] != "POST")
 	die();
 if (!isset($_POST['nome']) || !isset($_POST['email']) || !isset($_POST['senha']))
@@ -19,6 +25,11 @@ $res = $conexao->execute_query("INSERT INTO Usuarios VALUE (?, ?, ?, ?)", [NULL,
 
 if (!$res)
 	die($conexao->error);
+
+if (!session_start())
+	die("Erro ao inicializar a sessão.\n");
+
+$_SESSION['id'] = $res['id'];
 
 echo "Cadastrado com sucesso!";
 
