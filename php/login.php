@@ -1,4 +1,10 @@
 <?php
+setcookie("test", "test", time() + 60);
+if (count($_COOKIE) === 0)
+	die("Habilite os cookies em seu navegador.");
+?>
+
+<?php
 if ($_SERVER['REQUEST_METHOD'] != "POST")
 	die();
 if (!isset($_POST['email']) || !isset($_POST['senha']))
@@ -12,11 +18,13 @@ if (!$res)
 	die("Esse email não está cadastrado.\n");
 if ($res['senha'] != hash('sha256', $_POST['senha']))
 	die("Senha errada.\n");
-/*
+
 if (!session_start())
 	die("Erro ao inicializar a sessão.\n");
 
 $_SESSION['id'] = $res['id'];
-*/
+
+echo "Logado com sucesso.";
+
 $conexao->close();
 ?>
