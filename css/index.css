@@ -14,6 +14,15 @@ body {
     max-width: 1200px;
 }
 
+#cards_container a {
+	text-decoration: none;
+	color: black;
+}
+
+#cards_container a:nth-child(even) {
+	transform: translateY(160px); 
+}
+
 @media only screen and (max-width: 700px) {
 	#cards_container {
 		column-gap: 3rem;
@@ -49,8 +58,4 @@ body {
 .card-text p {
 	font-size: 16px;
 	line-height: 1.5;
-}
-
-.card:nth-child(even) {
-	transform: translateY(160px); 
 }
