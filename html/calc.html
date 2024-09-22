@@ -12,15 +12,15 @@
 
 <body>
     <nav>
-        <a href='./index.html'><img id="logo" alt="Logo" src="../img/logo.png"></a>
+        <a href='../index.html'><img id="logo" alt="Logo" src="../img/logo.png"></a>
         <ul class="menu">
             <li><a href="">Sobre</a></li>
             <li><a href="">Blog</a></li>
             <li class="drop">
                 <a href="#">Conta</a>
                 <ul class="conteudo">
-                    <li><a href="">Login</a></li>
-                    <li><a href="./html/cadastro.html">Cadastro</a></li>
+                    <li><a href="./login.html">Login</a></li>
+                    <li><a href="./cadastro.html">Cadastro</a></li>
                 </ul>
             </li>
         </ul>
@@ -28,14 +28,18 @@
 
     <h1>Calculadora </h1>
     <div class="container">
-        <form class="calculadora" action="./../php/calc.php" method="POST">
+        <form class="calculadora" action="../php/calc.php" method="POST">
             <div class="dados">
-                <h3>Quanto de energia estima gerar:</h3>
-                <input type="text" name="gerada" id="" placeholder="Energia gerada">
-                <h3>Quanto de energia média consome diariamente:</h3>
-                <input type="number" name="consumo" id="" placeholder="Energia consumida">
-                <h3>Como é o lugar onde vives?</h3>
+                <h3>Capacidade da bateria em Ah:</h3>
+                <input type="number" name="capacidade" placeholder="Capacidade">
+                <h3>Profundidade de descarga da bateria (em porcentagem):</h3>
+                <input type="number" name="pd" placeholder="Profundidade de descarga">
+                <h3>Tensão da bateria:</h3>
+                <input type="number" name="tensao" placeholder="Tensão">
+                <h3>Consumo médio de energia por dia em kWh:</h3>
+                <input type="number" name="consumo" placeholder="Energia consumida">
 
+		<h3>Como é o lugar onde vives?</h3>
                 <input type="checkbox" name="local[]" value="vento" id="vento">
                 <label for="vento">Muito vento</label>
                 <input type="checkbox" name="local[]" value="sol" id="sol">

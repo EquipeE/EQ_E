@@ -1,13 +1,16 @@
 <?php
-if (!isset($_POST['consumo']) || !isset($_POST['moradia']))
+if (!isset($_POST['capacidade']) || !isset($_POST['pd']) || !isset($_POST['tensao']) || !isset($_POST['consumo']) || !isset($_POST['moradia']))
     die ("Dados Insuficientes");
 
-$consumo = $_POST['consumo'] * 1000;
-echo "<br>Se a sua rede for de 220V, considere uma bateria de " . number_format($consumo/220, 0, '.', '') . "A.<br>Se a rede for de 127V. considere uma bateria de " . number_format($consumo/127, 0, '.', '') . "A<br>";
+$consumoHora = $_POST['consumo'] / 24;
+$capacidadeUtil = $_POST['capacidade']*$_POST['tensao']/1000*$_POST['pd']/100;
+$horas = $capacidadeUtil/$consumoHora;
+echo "Sua bateria sustenta sua casa sem carregar por {$horas} horas.<br>";
+
 if (!isset($_POST['local']) && $_POST['moradia'] != 'casa_rural')
     die("Não há opções no seu local");
 
-$local = $_POST['local'];
+$local = (isset($_POST['local'])) ? $_POST['local'] : [];
 $moradia = $_POST['moradia'];
 
 $opcoes = [];
