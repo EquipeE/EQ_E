@@ -27,7 +27,7 @@ if (!$res)
 $res = $conexao->query("SELECT * FROM Posts ORDER BY id DESC")->fetch_all(MYSQLI_BOTH);
 
 if (!$res)
-	die($conexao.error);
+	die($conexao->error);
 
 $blogText = "";
 $carrosselText = "";
@@ -46,13 +46,13 @@ array_pop($res); /* Carrossel usa apenas 3 posts */
 foreach($res as $r)
 	$carrosselText .= "<div class='slide'><a href='./html/post.php?id={$r['id']}'><img src='./img/posts/{$r['imagem']}'></a></div>\n";
 
-$template = file_get_contents(__DIR__ . "/../../html/index_template.html");
+$template = file_get_contents(__DIR__ . "/../../html/templates/index_template.html");
 $final = str_replace("!!!CARROSSEL", $carrosselText, str_replace("!!!CARDS", $cardsText, $template));
 
 if (!file_put_contents(__DIR__ . "/../../index.html", $final))
 	die("Erro gerando index.html");
 
-$template = file_get_contents(__DIR__ . "/../../html/blog_template.html");
+$template = file_get_contents(__DIR__ . "/../../html/templates/blog_template.html");
 $final = str_replace("!!!BLOG", $blogText, $template);
 
 if (!file_put_contents(__DIR__ . "/../../html/blog.html", $final))

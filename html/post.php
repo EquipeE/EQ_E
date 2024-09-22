@@ -14,7 +14,8 @@
         <ul class="menu">
             <li><a id="" href="./../index.html">Home</a></li>
             <li><a href="">Sobre</a></li>
-            <li><a href="current-page">Blog</a></li>
+            <li><a id="current-page" href="./blog.html">Blog</a></li>
+            <li><a href="./calc.html">Calculadora</a></li>
             <li class="drop">
                 <a href="#">Conta</a>
                 <ul class="conteudo">
@@ -38,17 +39,12 @@
     </section>
     <section id="comentarios-container">
 	<h3>Comentários</h3>
-	<?php //include("../php/comentarios/add_comment.php") ?>
 	<form action="../php/comentarios/add_comment.php" method="POST">
 	<textarea cols="40" rows="12" name="comment">Escreva aqui seu comentário.</textarea>
 	<input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
 	<input type="submit" value="Comentar">
 	</form>
 	<div id="comentarios">
-		<!--
-		<div class="comentario"><h4>Jonathan disse:</h4>Sei lá cara acho que tu devia se matar namoral, que texto bosta.</div>
-		<div class="comentario"><h4>Kaio disse:</h4>Top.</div>
-		-->
 		<?php include("../php/comentarios/get_post_comments.php") ?>
 	</div>
     </section>
