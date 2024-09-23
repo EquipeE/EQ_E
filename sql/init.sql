@@ -27,3 +27,5 @@ CREATE TABLE Comentarios(
     FOREIGN KEY (id_post) REFERENCES Posts(id),
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id)
 );
+
+INSERT INTO Usuarios VALUES (NULL, 'a', 'a@a.com', 'a2ca37fe6fdc490b8f7ce841e1701a169d2b1697c6b5b5c63f94abb8f9b6d6dd'); -- Senha 'Senha@123'

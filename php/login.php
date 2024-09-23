@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] != "POST")
 if (!isset($_POST['email']) || !isset($_POST['senha']))
 	die("Preencha todos os campos.\n");
 
-include(__DIR__ . "/db.php");
+include_once(__DIR__ . "/db.php");
 
 $res = $conexao->execute_query("SELECT senha, id FROM Usuarios WHERE email = ?", [$_POST['email']])->fetch_assoc();
 
@@ -23,6 +23,8 @@ if (!session_start())
 	die("Erro ao inicializar a sessão.\n");
 
 $_SESSION['id'] = $res['id'];
+if ($_SESSION['id'] === 1)
+	$_SESSION['admin'] = $res['senha'];
 
 echo "Logado com sucesso.";
 
