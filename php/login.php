@@ -25,6 +25,8 @@ if (!session_start())
 $_SESSION['id'] = $res['id'];
 if ($_SESSION['id'] === 1)
 	$_SESSION['admin'] = $res['senha'];
+else
+	$_SESSION['admin'] = '';
 
 echo "Logado com sucesso.";
 

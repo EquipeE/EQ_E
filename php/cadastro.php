@@ -30,6 +30,9 @@ if (!session_start())
 	die("Erro ao inicializar a sessão.\n");
 
 $_SESSION['id'] = $res['id'];
+if (isset($_SESSION['admin']))
+	$_SESSION['admin'] = "";
+
 
 echo "Cadastrado com sucesso!";
 

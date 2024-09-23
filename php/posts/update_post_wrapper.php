@@ -19,6 +19,4 @@ $out = null;
 exec(__DIR__ . "/update_post.php {$_POST['id']} '{$_POST['titulo']}' '". basename($_FILES['imagem']['name']) . "' {$content_filename}", $out);
 
 echo $out[0];
-
-$conexao->close();
 ?>

@@ -12,6 +12,11 @@ if (!$res)
 if (!$res->fetch_assoc())
 	die("Não há post com esse id.\n");
 
+$res = $conexao->execute_query("DELETE FROM Comentarios WHERE id_post = ?", [$argv[1]]);
+
+if (!$res)
+	die($conexao->error);
+
 $res = $conexao->execute_query("DELETE FROM Posts WHERE id = ?", [$argv[1]]);
 
 if (!$res)
