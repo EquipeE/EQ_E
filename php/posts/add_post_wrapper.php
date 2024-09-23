@@ -16,7 +16,7 @@ if (!file_put_contents($content_filename, $_POST['conteudo']))
 	die("Erro criando arquivo de conteudo");
 
 $out = null;
-exec(__DIR__ . "/add_post.php {$_POST['titulo']} ". basename($_FILES['imagem']['name']) . " {$content_filename}", $out);
+exec(__DIR__ . "/add_post.php '{$_POST['titulo']}' '". basename($_FILES['imagem']['name']) . "' {$content_filename}", $out);
 
 echo $out[0];
 
