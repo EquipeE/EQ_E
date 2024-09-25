@@ -132,13 +132,26 @@ h1{
     color: white;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.459), rgba(0, 0, 0, 0.733));
 }
-
-.mensagem-sucesso {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #dff0d8;
-    color: #3c763d;
-    border: 1px solid #d6e9c6;
-    border-radius: 4px;
-    text-align: center;
+#resultado, #resultado-erro {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50vmin;
+	height: 7vmin;
+	color: white;
+	margin: 2rem auto;
+	border-radius: 10px;
+	font-family: arial;
+	font-size: x-large;
+}
+@media only screen and (max-width: 600px) {
+	#resultado, #resultado-erro {
+		font-size: 9pt;
+	}
+}
+#resultado {
+	background-color: #8aeda4;
+}
+#resultado-erro {
+	background-color: #e60000;
 }
