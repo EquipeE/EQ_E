@@ -1,5 +1,5 @@
 <?php
-setcookie("test", "test", time() + 60);
+setcookie("test", "test", time() + 120);
 if (count($_COOKIE) === 0)
 	die("Habilite os cookies em seu navegador.");
 ?>
@@ -29,10 +29,13 @@ if (!$res)
 if (!session_start())
 	die("Erro ao inicializar a sessão.\n");
 
-$_SESSION['id'] = $res['id'];
-if (isset($_SESSION['admin']))
-	$_SESSION['admin'] = "";
+$res = $conexao->execute_query("SELECT * FROM Usuarios WHERE email = ?", [$_POST['email']]);
 
+if (!$res)
+	die($conexao->error);
+
+$_SESSION['id'] = $res->fetch_assoc()['id'];
+$_SESSION['senha'] = $senha;
 
 echo "Cadastrado com sucesso!";
 

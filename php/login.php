@@ -1,5 +1,5 @@
 <?php
-setcookie("test", "test", time() + 60);
+setcookie("test", "test", time() + 120);
 if (count($_COOKIE) === 0)
 	die("Habilite os cookies em seu navegador.");
 ?>
@@ -23,10 +23,7 @@ if (!session_start())
 	die("Erro ao inicializar a sessão.\n");
 
 $_SESSION['id'] = $res['id'];
-if ($_SESSION['id'] === 1)
-	$_SESSION['admin'] = $res['senha'];
-else
-	$_SESSION['admin'] = '';
+$_SESSION['senha'] = $res['senha'];
 
 echo "Logado com sucesso.";
 
