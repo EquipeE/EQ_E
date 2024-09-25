@@ -27,9 +27,13 @@ $final = str_replace("!!!CARROSSEL", $carrosselText, str_replace("!!!CARDS", $ca
 if (!file_put_contents(__DIR__ . "/../../index.html", $final))
 	die("Erro gerando index.html");
 
+chown(__DIR__ . "/../../index.html", "apache");
+
 $template = file_get_contents(__DIR__ . "/../../html/templates/blog_template.html");
 $final = str_replace("!!!BLOG", $blogText, $template);
 
 if (!file_put_contents(__DIR__ . "/../../html/blog.html", $final))
 	die("Erro gerando blog.html");
+
+chown(__DIR__ . "/../../html/blog.html", "apache");
 ?>

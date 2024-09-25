@@ -1,4 +1,6 @@
 #!/bin/sh
+chown apache:apache ../ ../html/ ../img/posts/ ../txt # Dando permissão de escrita nas pastas corretas.
+
 ../php/posts/add_post.php "Stallman's Momentary Lapse of Reason" art1.png ../txt/interjection.txt
 ../php/posts/add_post.php "História chocante acontece na USP" art2.png ../txt/usp.txt
 ../php/posts/add_post.php "O Monólogo" art3.png ../txt/truth.txt
