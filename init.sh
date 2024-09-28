@@ -1,4 +1,5 @@
 #!/bin/sh
+mkdir -p ./img/posts/
 chown apache:apache ./ ./html/ ./img/posts/ ./txt # Dando permissão de escrita nas pastas corretas.
 
 curl -F "titulo=Stallman's Momentary Lapse of Reason" -F 'imagem=@./img/art1.png' -F 'conteudo=<./txt/interjection.txt' localhost/EQ_E/php/posts/add_post.php
