@@ -1,3 +1,4 @@
+/* Define $index_path before including as the relative path to index file */
 <?php
 session_start();
 
@@ -10,7 +11,7 @@ if (!$conexao)
 $res = $conexao->query("SELECT senha FROM Usuarios WHERE id = 1")->fetch_assoc(); 
 
 if ($_SESSION['senha'] !== $res['senha'] || $_SESSION['id'] !== 1) {
-	header("Location: ./../index.html");
+	header("Location: {$index_path}");
 	die();
 }
 

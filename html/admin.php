@@ -1,4 +1,4 @@
-<?php include("./../php/check_admin.php") ?>
+<?php $index_path = "../index.html"; include "./../php/check_admin.php" ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
