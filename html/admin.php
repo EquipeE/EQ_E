@@ -27,14 +27,14 @@
         </ul>
     </nav><br>
     <h1>Criar post</h1>
-    <form action="../php/posts/add_post_wrapper.php" method="POST" enctype="multipart/form-data">
+    <form action="../php/posts/add_post.php" method="POST" enctype="multipart/form-data">
 	<input type="text" name="titulo" placeholder="titulo"><br>
 	<input type="file" name="imagem"><br>
 	<textarea name="conteudo" rows="24" cols="80">Escreva aqui o conteudo</textarea><br>
 	<input type="submit" value="Criar">
     </form>
     <h1>Atualizar post</h1>
-    <form action="../php/posts/update_post_wrapper.php" method="POST" enctype="multipart/form-data">
+    <form action="../php/posts/update_post.php" method="POST" enctype="multipart/form-data">
 	<input type="number" name="id" placeholder="id"><br>
 	<input type="text" name="titulo" placeholder="titulo"><br>
 	<input type="file" name="imagem"><br>
@@ -42,7 +42,7 @@
 	<input type="submit" value="Atualizar">
     </form>
     <h1>Deletar post</h1>
-    <form action="../php/posts/delete_post_wrapper.php" method="POST">
+    <form action="../php/posts/delete_post.php" method="POST">
 	<input type="number" name="id" placeholder="id"><br>
 	<input type="submit" value="Deletar">
     </form>
