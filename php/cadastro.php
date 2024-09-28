@@ -9,7 +9,7 @@ function err_wrapper($str) {
 require_once 'db.php';
 
 if (!$cookie_support)
-	err_wrapper("Habilite os cookies");
+	echo "<div id='resultado-erro'><strong>Habilite os cookies</strong></div>";
 
 $conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 if (!$conexao)

@@ -28,21 +28,21 @@ function update_placeholders() {
 	foreach($res as $r)
 		$carrosselText .= "<div class='slide'><a href='./html/post.php?id={$r['id']}'><img src='./img/posts/{$r['imagem']}'></a></div>\n";
 
-	$template = file_get_contents(__DIR__ . "/../../html/templates/index_template.html");
+	$template = file_get_contents(__DIR__ . "/../../html/templates/index_template.php");
 	$final = str_replace("!!!CARROSSEL", $carrosselText, str_replace("!!!CARDS", $cardsText, $template));
 
-	if (!file_put_contents(__DIR__ . "/../../index.html", $final))
-		die("Erro gerando index.html");
+	if (!file_put_contents(__DIR__ . "/../../index.php", $final))
+		die("Erro gerando index.php");
 
-	chown(__DIR__ . "/../../index.html", "apache");
+	chown(__DIR__ . "/../../index.php", "apache");
 
-	$template = file_get_contents(__DIR__ . "/../../html/templates/blog_template.html");
+	$template = file_get_contents(__DIR__ . "/../../html/templates/blog_template.php");
 	$final = str_replace("!!!BLOG", $blogText, $template);
 
-	if (!file_put_contents(__DIR__ . "/../../html/blog.html", $final))
-		die("Erro gerando blog.html");
+	if (!file_put_contents(__DIR__ . "/../../html/blog.php", $final))
+		die("Erro gerando blog.php");
 
-	chown(__DIR__ . "/../../html/blog.html", "apache");
+	chown(__DIR__ . "/../../html/blog.php", "apache");
 }
 
 function add_post($titulo, $img, $conteudo) {

@@ -1,5 +1,5 @@
 <?php
-# Define $index_path before including as the relative path to index file
+$index_path = "./../index.php";
 session_start();
 
 require_once 'db.php';
@@ -10,10 +10,11 @@ if (!$conexao)
 
 $res = $conexao->query("SELECT senha FROM Usuarios WHERE id = 1")->fetch_assoc(); 
 
-if ($_SESSION['senha'] !== $res['senha'] || $_SESSION['id'] !== 1) {
-	header("Location: {$index_path}");
-	die();
-}
+$admin_path = (basename($_SERVER['PHP_SELF']) === "index.php") ? './html/admin.php' : 'admin.php';
+
+if ($_SESSION['senha'] === $res['senha'] &&  $_SESSION['id'] === 1)
+	echo "<li><a href='{$admin_path}'>Admin</a></li>";
 
 $conexao->close();
+
 ?>

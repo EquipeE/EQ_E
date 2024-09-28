@@ -11,17 +11,18 @@
 </head>
 <body> 
     <nav>
-	<a href='./../index.html'><img id="logo" alt="Logo" src="./../img/logo.png"></a>
+	<a href='./../index.php'><img id="logo" alt="Logo" src="./../img/logo.png"></a>
         <ul class="menu">
-            <li><a href="./../index.html">Home</a></li>
+            <li><a href="./../index.php">Home</a></li>
             <li><a href="">Sobre</a></li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./calc.html">Calculadora</a></li>
+            <li><a href="./blog.php">Blog</a></li>
+            <li><a href="./calc.php">Calculadora</a></li>
             <li class="drop">
                 <a href="#">Conta</a>
-                <ul class="conteudo">
-                    <li><a href="./login.html">Login</a></li>
-                    <li><a href="./cadastro.html">Cadastro</a></li>
+		<ul class="conteudo">
+		    <?php include '../php/dynamic_login_logout.php' ?>
+                    <li><a href="cadastro.php">Cadastro</a></li>
+		    <?php include '../php/admin_screen_button.php' ?>
                 </ul>    
             </li>
         </ul>

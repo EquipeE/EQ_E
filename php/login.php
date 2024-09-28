@@ -8,7 +8,7 @@ function err_wrapper($str) {
 require_once 'db.php';
 
 if (!$cookie_support)
-	err_wrapper("Habilite os cookies");
+	echo "<div id='resultado-erro'><strong>Habilite os cookies</strong></div>";
 
 $conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 if (!$conexao)
@@ -17,17 +17,17 @@ if (!$conexao)
 if ($_SERVER['REQUEST_METHOD'] != "POST")
 	die();
 if (!isset($_POST['email']) || !isset($_POST['senha']))
-	err_wrapper("Preencha todos os campos\n");
+	err_wrapper("Preencha todos os campos");
 
 $res = $conexao->execute_query("SELECT senha, id FROM Usuarios WHERE email = ?", [$_POST['email']])->fetch_assoc();
 
 if (!$res)
-	err_wrapper("Email não cadastrado\n");
+	err_wrapper("Email não cadastrado");
 if ($res['senha'] != hash('sha256', $_POST['senha']))
-	err_wrapper("Senha errada\n");
+	err_wrapper("Senha errada");
 
 if (!session_start())
-	err_wrapper("Erro inicializando sessão\n");
+	err_wrapper("Erro inicializando sessão");
 
 $_SESSION['id'] = $res['id'];
 $_SESSION['senha'] = $res['senha'];
