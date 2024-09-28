@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . '/../db.php');
+require_once __DIR__ . '/../db.php';
 
 function update_placeholders() {
 	$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
@@ -34,7 +34,7 @@ function update_placeholders() {
 	if (!file_put_contents(__DIR__ . "/../../index.html", $final))
 		die("Erro gerando index.html");
 
-#	chown(__DIR__ . "/../../index.html", "apache");
+	chown(__DIR__ . "/../../index.html", "apache");
 
 	$template = file_get_contents(__DIR__ . "/../../html/templates/blog_template.html");
 	$final = str_replace("!!!BLOG", $blogText, $template);
@@ -42,7 +42,7 @@ function update_placeholders() {
 	if (!file_put_contents(__DIR__ . "/../../html/blog.html", $final))
 		die("Erro gerando blog.html");
 
-#	chown(__DIR__ . "/../../html/blog.html", "apache");
+	chown(__DIR__ . "/../../html/blog.html", "apache");
 }
 
 function add_post($titulo, $img, $conteudo) {

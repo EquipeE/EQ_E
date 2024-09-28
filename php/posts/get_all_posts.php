@@ -1,5 +1,10 @@
 <?php
-include(__DIR__ . '/../db.php');
+require_once __DIR__ . '/../db.php';
+
+$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+if (!$conexao)
+	die("Erro ao abrir o banco.");
+
 $res = $conexao->query("SELECT titulo, imagem, id FROM Posts ORDER BY id DESC");
 
 if (!$res)

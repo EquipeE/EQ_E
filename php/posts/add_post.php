@@ -1,5 +1,5 @@
 <?php
-include_once 'crud_post.php';
+require_once 'crud_post.php';
 if (!isset($_POST['titulo']) || !isset($_POST['conteudo']) || !isset($_FILES['imagem']))
 	die("Dados insuficientes\n");
 

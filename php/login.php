@@ -6,17 +6,21 @@ function err_wrapper($str) {
 
 <?php
 setcookie("test", "test", time() + 120);
-if (count($_COOKIE) === 0)
+if (!isset($_COOKIE['test']) && $_SERVER['REQUEST_METHOD'] === "POST")
 	err_wrapper("Habilite os cookies");
 ?>
 
 <?php
+require_once 'db.php';
+
+$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+if (!$conexao)
+	die("Erro ao abrir o banco.");
+
 if ($_SERVER['REQUEST_METHOD'] != "POST")
 	die();
 if (!isset($_POST['email']) || !isset($_POST['senha']))
 	err_wrapper("Preencha todos os campos\n");
-
-include_once(__DIR__ . "/db.php");
 
 $res = $conexao->execute_query("SELECT senha, id FROM Usuarios WHERE email = ?", [$_POST['email']])->fetch_assoc();
 
