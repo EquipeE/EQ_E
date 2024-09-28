@@ -1,3 +1,4 @@
+<?php include '../php/check_cookie_support.php' ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>

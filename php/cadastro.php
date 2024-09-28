@@ -6,13 +6,10 @@ function err_wrapper($str) {
 ?>
 
 <?php
-setcookie("test", "test", time() + 120);
-if (!isset($_COOKIE['test']) && $_SERVER['REQUEST_METHOD'] === "POST")
-	err_wrapper("Habilite os cookies");
-?>
-
-<?php
 require_once 'db.php';
+
+if (!$cookie_support)
+	err_wrapper("Habilite os cookies");
 
 $conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 if (!$conexao)
