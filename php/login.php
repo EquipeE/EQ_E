@@ -1,38 +1,39 @@
 <?php
-function err_wrapper($str) {
-	die("<div id='resultado-erro'><strong>{$str}</strong></div>");
-}
-?>
-
-<?php
+# Espera que uma variável cookie_support estará setada.
 require_once 'db.php';
 
-if (!$cookie_support)
-	echo "<div id='resultado-erro'><strong>Habilite os cookies</strong></div>";
-
-$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-if (!$conexao)
-	die("Erro ao abrir o banco.");
-
 if ($_SERVER['REQUEST_METHOD'] != "POST")
-	die();
+	return;
+
+$success = false;
+
+if (!$cookie_support)
+	return "Habilite os cookies";
+
+if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
+	return "Erro ao abrir o banco.";
+
 if (!isset($_POST['email']) || !isset($_POST['senha']))
-	err_wrapper("Preencha todos os campos");
+	return "Preencha todos os campos";
 
-$res = $conexao->execute_query("SELECT senha, id FROM Usuarios WHERE email = ?", [$_POST['email']])->fetch_assoc();
+if (!$res = $conexao->execute_query("SELECT senha, id FROM Usuarios WHERE email = ?", [$_POST['email']]))
+	return $conexao->error;
 
-if (!$res)
-	err_wrapper("Email não cadastrado");
+if ($res->num_rows === 0)
+	return "Email não cadastrado";
+
+$res = $res->fetch_assoc();
+
 if ($res['senha'] != hash('sha256', $_POST['senha']))
-	err_wrapper("Senha errada");
+	return "Senha errada";
 
-if (!session_start())
-	err_wrapper("Erro inicializando sessão");
+if (!session_start(["use_strict_mode" => 1, "cookie_httponly" => 1]))
+	return "Erro inicializando sessão";
 
 $_SESSION['id'] = $res['id'];
-$_SESSION['senha'] = $res['senha'];
 
-echo "<div id='resultado'><strong>Logado com sucesso</strong></div>";
+$success = true;
+return  "Logado com sucesso";
 
 $conexao->close();
 ?>

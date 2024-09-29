@@ -1,51 +1,44 @@
 <?php
-function err_wrapper($str) {
-	die("<div id='resultado-erro'><strong>{$str}</strong></div>");
-}
-
-?>
-
-<?php
 require_once 'db.php';
 
-if (!$cookie_support)
-	echo "<div id='resultado-erro'><strong>Habilite os cookies</strong></div>";
-
-$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-if (!$conexao)
-	die("Erro ao abrir o banco.");
-
 if ($_SERVER['REQUEST_METHOD'] != "POST")
-	die();
-if (!isset($_POST['nome']) || !isset($_POST['email']) || !isset($_POST['senha']))
-	err_wrapper("Preencha todos os campos");
+	return;
+
+$success = false;
+
+if (!$cookie_support)
+	return "Habilite os cookies";
+
+if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
+	return "Erro ao abrir o banco.";
+
+if (!isset($_POST['nome']) || !isset($_POST['email']) || !isset($_POST['senha'])
+	|| $_POST['nome'] === '' || $_POST['email'] === '' || $_POST['senha'] === '')
+	return "Preencha todos os campos";
 
 if (strlen($_POST['nome']) > MAX_NAME_LENGTH || strlen($_POST['email']) > MAX_EMAIL_LENGTH)
-	err_wrapper("Dados muito longos");
+	return "Dados muito longos";
 
-$res = $conexao->execute_query("SELECT * FROM Usuarios WHERE email = ?", [$_POST['email']]);
+if (!$res = $conexao->execute_query("SELECT * FROM Usuarios WHERE email = ?", [$_POST['email']]))
+	return $conexao->error;
 
 if ($res->num_rows > 0) 
-	err_wrapper("Email já cadastrado");  
+	return "Email já cadastrado";
 
 $senha = hash('sha256', $_POST['senha']);
-$res = $conexao->execute_query("INSERT INTO Usuarios VALUE (?, ?, ?, ?)", [NULL, $_POST['nome'], $_POST['email'], $senha]);
+if (!$res = $conexao->execute_query("INSERT INTO Usuarios VALUE (?, ?, ?, ?)", [NULL, $_POST['nome'], $_POST['email'], $senha]))
+	return $conexao->error;
 
-if (!$res)
-	err_wrapper($conexao->error);
+if (!session_start(["use_strict_mode" => 1, "cookie_httponly" => 1]))
+	return "Erro ao inicializar a sessão";
 
-if (!session_start())
-	err_wrapper("Erro ao inicializar a sessão");
-
-$res = $conexao->execute_query("SELECT * FROM Usuarios WHERE email = ?", [$_POST['email']]);
-
-if (!$res)
-	err_wrapper($conexao->error);
+if (!$res = $conexao->execute_query("SELECT * FROM Usuarios WHERE email = ?", [$_POST['email']]))
+	return $conexao->error;
 
 $_SESSION['id'] = $res->fetch_assoc()['id'];
-$_SESSION['senha'] = $senha;
 
-echo "<div id='resultado'><strong>Cadastrado com sucesso!</strong></div>";
+$success = true;
+return "Cadastrado com sucesso!";
 
 $conexao->close();
 ?>

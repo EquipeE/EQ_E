@@ -1,8 +1,9 @@
 <?php
-session_start();
+session_start(["use_strict_mode" => 1, "cookie_httponly" => 1]);
 
-unset($_SESSION['id']);
-unset($_SESSION['senha']);
+$_SESSION = array();
+session_destroy();
+
 header("Location: ./../index.php");
 die();
 ?>

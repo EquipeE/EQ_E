@@ -1,4 +1,5 @@
 <?php include '../php/check_cookie_support.php' ?>
+<?php $msg = include '../php/cadastro.php' ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -45,7 +46,7 @@
             <input type="submit" value="Cadastrar">
         </form>
     </div>
-    <?php include("../php/cadastro.php") ?>
+    <?php include './../php/show_message_box.php' ?>
     <script src="./../js/cadastro.js"></script>
 </body>
 </html>

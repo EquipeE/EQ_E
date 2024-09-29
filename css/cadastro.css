@@ -94,7 +94,6 @@ h1{
     border-bottom-right-radius: 10px;
     border-left: none;
 }
-
 .eye:hover {
     color: white;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.459), rgba(0, 0, 0, 0.733));
@@ -110,6 +109,7 @@ h1{
 	border-radius: 10px;
 	font-family: arial;
 	font-size: x-large;
+	font-weight: bold;
 }
 @media only screen and (max-width: 600px) {
 	#resultado, #resultado-erro {

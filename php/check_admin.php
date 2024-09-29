@@ -1,19 +1,10 @@
 <?php
 # Define $index_path before including as the relative path to index file
-session_start();
 
-require_once 'db.php';
+session_start(["use_strict_mode" => 1, "cookie_httponly" => 1]);
 
-$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-if (!$conexao)
-	die("Erro ao abrir o banco.");
-
-$res = $conexao->query("SELECT senha FROM Usuarios WHERE id = 1")->fetch_assoc(); 
-
-if ($_SESSION['senha'] !== $res['senha'] || $_SESSION['id'] !== 1) {
+if ($_SESSION['id'] !== 1) {
 	header("Location: {$index_path}");
 	die();
 }
-
-$conexao->close();
 ?>

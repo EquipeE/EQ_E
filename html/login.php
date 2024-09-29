@@ -1,4 +1,5 @@
 <?php include '../php/check_cookie_support.php' ?>
+<?php $msg = include '../php/login.php' ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -41,7 +42,7 @@
             <input type="submit" value="Login">
         </form>
     </div>
-    <?php include("../php/login.php") ?>
+    <?php include '../php/show_message_box.php'  ?>
     <script src="./../js/login.js"></script>
 </body>
 </html>
