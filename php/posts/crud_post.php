@@ -2,13 +2,10 @@
 require_once __DIR__ . '/../db.php';
 
 function update_placeholders() {
-	$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-	if (!$conexao)
+	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
 		die("Erro ao abrir o banco.");
 
-	$res = $conexao->query("SELECT * FROM Posts ORDER BY id DESC")->fetch_all(MYSQLI_BOTH);
-
-	if (!$res)
+	if (!$res = $conexao->query("SELECT * FROM Posts ORDER BY id DESC")->fetch_all(MYSQLI_BOTH))
 		die($conexao->error);
 
 	$blogText = "";
@@ -46,8 +43,7 @@ function update_placeholders() {
 }
 
 function add_post($titulo, $img, $conteudo) {
-	$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-	if (!$conexao)
+	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
 		die("Erro ao abrir o banco.");
 
 	if (strlen($titulo) > MAX_TITLE_LENGTH || strlen($img) > MAX_IMAGE_PATH_LENGTH)
@@ -57,25 +53,21 @@ function add_post($titulo, $img, $conteudo) {
 	if (!file_exists($conteudo))
 		die("O arquivo de conteudo {$argv[3]} não existe.\n");
 
-	$cont = file_get_contents($conteudo);
-	if (!$conteudo)
+	if (!$cont = file_get_contents($conteudo))
 		die("Erro lendo o arquivo de counteúdo {$conteudo}.\n");
 
 	$cont = str_replace("\n", "<br>", $cont);
 
-	$res = $conexao->execute_query("INSERT INTO Posts VALUES (?, ?, ?, ?)", [NULL, $titulo, $img, $cont]); 
-
-	if (!$res)
+	if (!$res = $conexao->execute_query("INSERT INTO Posts VALUES (?, ?, ?, ?)", [NULL, $titulo, $img, $cont]))
 		die($conexao->error);
 
 	update_placeholders();	
-
 	$conexao->close();
+	unlink($conteudo);
 }
 
 function update_post($id, $titulo, $img, $conteudo) {
-	$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-	if (!$conexao)
+	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
 		die("Erro ao abrir o banco.");
 
 	if (strlen($titulo) > MAX_TITLE_LENGTH || strlen($img) > MAX_IMAGE_PATH_LENGTH)
@@ -85,22 +77,17 @@ function update_post($id, $titulo, $img, $conteudo) {
 	if (!file_exists($conteudo))
 		die("O arquivo de conteudo {$conteudo} não existe.\n");
 
-	$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$id]);
-
-	if (!$res)
+	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$id]))
 		die($conexao->error);
-	if (!$res->fetch_assoc())
+	if ($res->num_rows === 0)
 		die("Não há post com esse id.\n");
 
-	$cont = file_get_contents($conteudo);
-	if (!$cont)
+	if (!$cont = file_get_contents($conteudo))
 		die("Erro lendo o arquivo de counteúdo {$conteudo}.\n");
 
 	$cont = str_replace("\n", "<br>", $cont);
 
-	$res = $conexao->execute_query("UPDATE Posts SET titulo = ?, imagem = ?, conteudo = ? WHERE id = ?", [$titulo, $img, $cont, $id]); 
-
-	if (!$res)
+	if (!$res = $conexao->execute_query("UPDATE Posts SET titulo = ?, imagem = ?, conteudo = ? WHERE id = ?", [$titulo, $img, $cont, $id]))
 		die($conexao->error);
 
 	update_placeholders();
@@ -108,29 +95,27 @@ function update_post($id, $titulo, $img, $conteudo) {
 }
 
 function delete_post($id) {
-	$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-	if (!$conexao)
+	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
 		die("Erro ao abrir o banco.");
 
-	$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$id]);
-
-	if (!$res)
+	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$id]))
 		die($conexao->error);
-	if (!$res->fetch_assoc())
+	if (!$res = $res->fetch_assoc())
 		die("Não há post com esse id.\n");
 
-	$res = $conexao->execute_query("DELETE FROM Comentarios WHERE id_post = ?", [$id]);
+	$post_img = $res['imagem'];
 
-	if (!$res)
+	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE imagem = ?", [$post_img]))
 		die($conexao->error);
+	if ($res->num_rows === 1)
+		unlink(__DIR__ . "/../../img/posts/{$post_img}");
 
-	$res = $conexao->execute_query("DELETE FROM Posts WHERE id = ?", [$id]);
-
-	if (!$res)
+	if (!$res = $conexao->execute_query("DELETE FROM Comentarios WHERE id_post = ?", [$id]))
+		die($conexao->error);
+	if (!$res = $conexao->execute_query("DELETE FROM Posts WHERE id = ?", [$id]))
 		die($conexao->error);
 
 	update_placeholders();
-
 	$conexao->close();
 }
 ?>
