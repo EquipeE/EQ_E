@@ -1,0 +1,26 @@
+footer {
+	background-color: #7f91a1;
+	color: white; 
+}
+#titulo-footer {
+	font-weight: bold;
+	text-align: center;
+	font-size: x-large;
+	padding-top: 20px;
+	margin-bottom: 5px;
+}
+#contatos {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: stretch;
+}
+#contatos p {
+	display: inline;
+	padding: 0 10px 0 10px;
+	border-right: 2px solid white;
+}
+#contatos p:last-child {
+	margin-right: 0;
+	border-right: 0;
+}

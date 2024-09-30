@@ -7,6 +7,7 @@
     <title>M-redes</title>
     <link rel="stylesheet" href="./../css/nav.css">
     <link rel="stylesheet" href="./../css/post.css">
+    <link rel="stylesheet" href="./../css/footer.css">
     <link rel="website icon" type="img" href="./../img/logo.png">
 </head>
 <body>
@@ -46,6 +47,14 @@
     <form action="../php/posts/delete_post.php" method="POST">
 	<input type="number" name="id" placeholder="id"><br>
 	<input type="submit" value="Deletar">
-    </form>
+    </form><br>
+    <footer>
+	<p id="titulo-footer">Contato</p>
+	<div id="contatos">
+		<p>Telefone: (69) 91234-5678</p>
+		<p>Whatsapp: (24) 98765-4321</p>
+		<p>Email: equipesenae@gmail.com</p>
+	</div>
+    </footer>
 </body>
 </html>

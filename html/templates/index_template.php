@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/carrossel.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="website icon" type="img" href="./img/logo.png">
 </head>
 <body>
@@ -38,5 +39,13 @@
     <main id="cards_container">
 	    !!!CARDS
     </main>
+    <footer>
+	<p id="titulo-footer">Contato</p>
+	<div id="contatos">
+		<p>Telefone: (69) 91234-5678</p>
+		<p>Whatsapp: (24) 98765-4321</p>
+		<p>Email: equipesenae@gmail.com</p>
+	</div>
+    </footer>
 </body>
 </html>

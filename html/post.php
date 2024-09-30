@@ -6,6 +6,7 @@
     <title>M-redes</title>
     <link rel="stylesheet" href="./../css/nav.css">
     <link rel="stylesheet" href="./../css/post.css">
+    <link rel="stylesheet" href="./../css/footer.css">
     <link rel="website icon" type="img" href="./../img/logo.png">
 </head>
 <body>
@@ -48,6 +49,14 @@
 	<div id="comentarios">
 		<?php include("../php/comentarios/get_post_comments.php") ?>
 	</div>
-    </section>
+    </section><br>
+    <footer>
+	<p id="titulo-footer">Contato</p>
+	<div id="contatos">
+		<p>Telefone: (69) 91234-5678</p>
+		<p>Whatsapp: (24) 98765-4321</p>
+		<p>Email: equipesenae@gmail.com</p>
+	</div>
+    </footer>
 </body>
 </html>
