@@ -41,7 +41,7 @@
     <section id="comentarios-container">
 	<h3>Comentários</h3>
 	<form action="../php/comentarios/add_comment.php" method="POST">
-	<textarea cols="40" rows="12" name="comment">Escreva aqui seu comentário.</textarea>
+	<textarea cols="40" rows="12" name="comment" placeholder="Escreva aqui seu comentário."></textarea>
 	<input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
 	<input type="submit" value="Comentar">
 	</form>
