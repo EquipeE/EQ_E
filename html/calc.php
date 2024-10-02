@@ -11,17 +11,17 @@
 </head>
 <body>
     <nav>
-        <a href='../index.php'><img id="logo" alt="Logo" src="../img/logo.png"></a>
+        <a href='../index.php'><img id="logo" alt="Logo" src="./../img/logo.png"></a>
+	<form><input type='image' src='./../img/ico/search.svg'><input type='text' placeholder='Pesquisar'></form>
         <ul class="menu">
-            <li><a href="./../index.php">Home</a></li>
-            <li><a href="">Sobre</a></li>
-            <li><a href="./blog.php">Blog</a></li>
-            <li><a href="./calc.php">Calculadora</a></li>
+            <li><a href="../index.php"><img src='../img/ico/home.svg'>Home</a></li>
+            <li><a href="../html/blog.php"><img src='../img/ico/book.svg'>Blog</a></li>
+            <li><a href="../html/calc.php"><img src='../img/ico/calc.svg'>Calculadora</a></li>
             <li class="drop">
-                <a href="#">Conta</a>
+                <a href="#"><img src='../img/ico/user.svg'>Conta</a>
 		<ul class="conteudo">
 		    <?php include '../php/dynamic_login_logout.php' ?>
-                    <li><a href="cadastro.php">Cadastro</a></li>
+                    <li><a href="../html/cadastro.php">Cadastro</a></li>
 		    <?php include '../php/admin_screen_button.php' ?>
                 </ul>    
             </li>

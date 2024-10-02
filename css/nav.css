@@ -3,7 +3,7 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background-color: #7f91a1;
     padding: 0.5em 0 0.5em 0;
     backdrop-filter: blur(15px);
@@ -12,10 +12,26 @@ nav {
 #logo {
     height: 7vh;
     width: 7vh;
-    border-right: 1px solid white;
-    padding-right: 1rem;
-    margin-right: 1.5rem;
 }
+
+
+nav form {
+	display: flex;
+	align-self: center;
+	justify-content: space-between;
+	gap: 5px;
+	margin: 0 0.5rem 0 0.5rem;
+}
+nav form input[type='text'] {
+	background-color: transparent;
+	color: white;
+	border: 0;
+	max-width: 20vmin;
+}
+nav form input[type='text']::placeholder {
+	color: white;
+}
+
 
 nav ul {
     list-style-type: none;
