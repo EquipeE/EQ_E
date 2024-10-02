@@ -12,7 +12,7 @@ if (!isset($_SESSION['id']))
 if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
 	die("Erro ao abrir o banco.");
 
-if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$_POST['id']]))
+if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$_POST['post_id']]))
 	die($conexao->error);
 
 if ($res->num_rows === 0)

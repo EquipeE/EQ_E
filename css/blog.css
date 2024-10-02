@@ -1,7 +1,9 @@
 body {
+    	background: url('./../img/Design sem nome (2).png') no-repeat center / cover;
 	margin: 0;
 	padding: 0;
 	background-color: #f4f4f4;
+	color: white;
 }
 h1 {
 	text-align: center;
@@ -20,7 +22,7 @@ main a {
 	flex-direction: row;
 	width: 100%;
 	text-decoration: none;
-	color: black;
+	color: white;
 }
 .card {	
 	flex-direction: row;

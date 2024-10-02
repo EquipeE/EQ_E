@@ -1,7 +1,9 @@
 body {
+    	background: url('./../img/Design sem nome (2).png') no-repeat center / cover;
 	margin: 0;
 	padding: 0;
 	background-color: #f4f4f4;
+	color: white;
 }
 
 #meta, main {
@@ -10,12 +12,15 @@ body {
 	padding-bottom: 25px; 
 	border-bottom: 3px solid red;
 }
+main {
+	font-size: 16pt;
+}
 #post-header {
 	text-align: center;
 }
 #post-header img {
 	display: block;
-	margin: auto;
+	margin: 3rem auto;
 	width: 40%;
 	height: auto;
 	object-fit: cover;
@@ -36,7 +41,7 @@ body {
 	width: 50%;
 	height: 100%;
 	text-decoration: none;
-	color: black;
+	color: white;
 }
 #cards-container {
 	padding-bottom: 25px;
@@ -60,12 +65,16 @@ body {
 
 form {
 	text-align: right;
+	margin-bottom: 3rem;
 }
 textarea {
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0);
 	border: 0;
     	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+textarea::placeholder {
+	color: white;
 }
 form input[type="submit"] {
 	width: 30vmin;
@@ -77,6 +86,7 @@ form input[type="submit"] {
 	text-align: left;
 }
 .comentario {
+	padding-left: 0.5rem;
 	border-bottom: 1px solid black;
 }
 .comentario:first-child {
