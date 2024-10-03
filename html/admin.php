@@ -16,7 +16,7 @@
         <ul class="menu">
             <li><a href="../index.php"><img src='../img/ico/home.svg'>Home</a></li>
             <li><a href="../html/blog.php"><img src='../img/ico/book.svg'>Blog</a></li>
-            <li><a href="../html/calc.php"><img src='../img/ico/calc.svg'>Calculadora</a></li>
+            <li><a href="../html/calc.php"><img id="calc-img" src='../img/ico/calc.svg'>Calculadora</a></li>
             <li class="drop">
                 <a href="#"><img src='../img/ico/user.svg'>Conta</a>
 		<ul class="conteudo">

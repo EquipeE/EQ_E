@@ -39,6 +39,13 @@ nav form input[type='text']:focus {
 	outline: none;
 	box-shadow: none;
 }
+@media only screen and (min-width: 600px) {
+	nav form input[type='text'] {
+		width: 50vmin;
+		max-width: 50vmin;
+	}
+}
+
 
 nav ul {
     list-style-type: none;
@@ -92,6 +99,9 @@ nav ul li a {
     text-decoration: none;
     text-align: center;
     min-width: 6ch;
+}
+#calc-img {
+	margin-bottom: -4px; /* O ícone é 4px maior que os outros */
 }
 
 nav ul li a:hover {
