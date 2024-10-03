@@ -12,11 +12,11 @@ function update_placeholders() {
 	$carrosselText = "";
 	$cardsText = "";
 
-	foreach($res as &$r) 
-		$r['conteudo'] = explode("<br>", $r['conteudo'], 2)[0];
-
 	foreach($res as $r)
 		$blogText .= "<a href='./post.php?id={$r['id']}'><div class='card'><img src='./../img/posts/{$r['imagem']}'><div class='card-text'>{$r['titulo']}</div></div></a>\n";
+
+	foreach($res as &$r) 
+		$r['conteudo'] = explode("<br>", $r['conteudo'], 2)[0];
 
 	$res = array_slice($res, 0, 4); /* Cards no index usam os primeiros 4 posts */
 
