@@ -30,41 +30,34 @@
 
     <h1>Calculadora </h1>
     <div class="container">
-        <form class="calculadora" action="../php/calc.php" method="POST">
+        <form class="calculadora" action="resultado.php" method="POST">
             <div class="dados">
-                <h3>Capacidade da bateria em Ah:</h3>
-                <input type="number" name="capacidade" placeholder="Capacidade">
-                <h3>Profundidade de descarga da bateria (em porcentagem):</h3>
-                <input type="number" name="pd" placeholder="Profundidade de descarga">
-                <h3>Tensão da bateria:</h3>
-                <input type="number" name="tensao" placeholder="Tensão">
-                <h3>Consumo médio de energia por dia em kWh:</h3>
-                <input type="number" name="consumo" placeholder="Energia consumida">
+                <label for="consumo"><h3>Consumo diário de energia (kWh):</h3></label>
+                <input type="number" name="consumo" id="consumo" placeholder="Energia consumida" required>
 
-		<h3>Como é o lugar onde vives?</h3>
+                <label for="autonomia"><h3>Autonomia da Bateria (Dias):</h3></label>
+                <input type="number" min="1" step="1" name="autonomia" value="positivo" id="positivo" placeholder="Autonomia da Bateria">
+		<br><br>
+                <input type="radio" name="autonomia" value="negativo" id="negativo">
+                <label for="negativo">Não pretendo utilizar bateria</label>
+		<br>
+		<label for="orcamento"><h3>Orçamento (R$):</h3></label>
+                <input type="number" min="1" step="0.1" name="orcamento" id="orcamento" placeholder="Orçamento" required >
+		<br>
+
+                <h3>Como é o lugar onde você vive:</h3>
                 <input type="checkbox" name="local[]" value="vento" id="vento">
                 <label for="vento">Muito vento</label>
                 <input type="checkbox" name="local[]" value="sol" id="sol">
-                <label for="sol">Muito sol</label>
-                <input type="checkbox" name="local[]" value="chuva" id="chuva">
-                <label for="chuva">Muita chuva</label>
+                <label for="sol">Ensolarado</label>
                 <input type="checkbox" name="local[]" value="rio" id="rio">
                 <label for="rio">Proximo a um rio</label>
-
-                <h3>Como é a sua moradia?</h3>
-                <input type="radio" name="moradia" value="casa_urbana" id="urbana">
-                <label for="urbana">Casa urbana</label>
-                <input type="radio" name="moradia" value="casa_rural" id="rural">
-                <label for="rural">Casa rural</label>
-                <input type="radio" name="moradia" value="apartamento" id="apartamento">
-                <label for="apartamento">Apartamento</label>
-                <br>
-                <br>
+		<br><br><br>
 
                 <input type="submit" id="botao" value="Calcular">
             </div>
         </form>
-    </div><br>
+    </div>
     <footer>
 	<p id="titulo-footer">Contato</p>
 	<div id="contatos">

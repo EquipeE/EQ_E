@@ -1,35 +1,107 @@
 <?php
-if (!isset($_POST['capacidade']) || !isset($_POST['pd']) || !isset($_POST['tensao']) || !isset($_POST['consumo']) || !isset($_POST['moradia']))
-    die ("Dados Insuficientes");
+require_once 'calc_consts.php';
 
-$consumoHora = $_POST['consumo'] / 24;
-$capacidadeUtil = $_POST['capacidade']*$_POST['tensao']/1000*$_POST['pd']/100;
-$horas = $capacidadeUtil/$consumoHora;
-echo "Sua bateria sustenta sua casa sem carregar por {$horas} horas.<br>";
+if (!isset($_POST['consumo']) || !isset($_POST['autonomia']) || !isset($_POST['orcamento']))
+	die("Dados insuficientes");
+if (!isset($_POST['local']))
+	die("Não há opções no seu local");
 
-if (!isset($_POST['local']) && $_POST['moradia'] != 'casa_rural')
-    die("Não há opções no seu local");
+$consumo = $_POST['consumo'];
+$autonomia = $_POST['autonomia'];
+$local = $_POST['local'];
+$orcamento = $_POST['orcamento'];
 
-$local = (isset($_POST['local'])) ? $_POST['local'] : [];
-$moradia = $_POST['moradia'];
+class Bateria {
+	public int $autonomia;
+	public int $capacidadeAh120;
+	public int $capacidadeAh120_reduzido;
+	public int $capacidadeAh220;
+	public int $capacidadeAh220_reduzido;
+	public int $capacidade_kwh;
+	public int $capacidade_kwh_reduzido;
+	public int $preco;
+	public int $preco_reduzido;
 
-$opcoes = [];
+	function __construct($consumo, $autonomia) {
+		$this->capacidade_kwh = ($autonomia === 'negativo') ? 0 : $consumo * $autonomia;
+		$this->autonomia = ($autonomia === 'negativo') ? 0 : $autonomia;
+		$this->preco = $this->capacidade_kwh * PRECO_UNITARIO_BATERIA;
 
-if ($moradia == "casa_rural")
-    $opcoes[] = "Considere produzir biogás a partir das fezes dos animais.";
-if (in_array("rio", $local) && $moradia != "apartamento")
-    $opcoes[] = "Considere instalar uma roda d'água.";
-if (in_array("rio", $local) && $moradia == "apartamento" && count($local) == 1)
-    $opcoes[] = "Não há opções no seu local";
-if (in_array("sol", $local))
-    $opcoes[] = "Considere utilizar painéis solares fotovoltaicos.";
-if (in_array("chuva", $local))
-    $opcoes[] = "Considere conferir nosso projeto!";
-if (in_array("vento", $local))
-    $opcoes[] = "Considere utilizar energia eólica.";
+		if ($autonomia === 'negativo') {
+			$this->capacidadeAh120 = 0;
+			$this->capacidadeAh120_reduzido = 0;
+			$this->capacidadeAh220 = 0;
+			$this->capacidadeAh220_reduzido = 0;
+		}
+	}
 
-echo "<ul>";
-foreach($opcoes as $e)
-    echo "<li>$e</li>";
-echo "</ul>";
+	function calcular_capacidadesAh() {
+		$this->capacidadeAh120 = ceil($this->capacidade_kwh * 1000 / 120);
+		$this->capacidadeAh120_reduzido= ceil($this->capacidade_kwh_reduzido * 1000 / 120);
+		$this->capacidadeAh220 = ceil($this->capacidade_kwh * 1000 / 220);
+		$this->capacidadeAh220_reduzido = ceil($this->capacidade_kwh_reduzido * 1000 / 220);
+	}
+
+	function reduzir_custo($custo_sistema, $orcamento) {
+		if ($custo_sistema > $orcamento) {
+			$this->capacidade_kwh_reduzido = 0;
+			$this->preco_reduzido = 0;
+			$this->autonomia = 0;
+		} elseif ($this->preco > ($orcamento - $custo_sistema)) {
+			$this->capacidade_kwh_reduzido = floor(($orcamento - $custo_sistema) / PRECO_UNITARIO_BATERIA);
+			$this->preco_reduzido = $this->capacidade_kwh_reduzido * PRECO_UNITARIO_BATERIA;
+		}
+
+		$this->calcular_capacidadesAh();
+	}
+}
+
+class Sistema {
+	public int $custo_sistema;
+	public int $custo_total;
+	public int $custo_total_reduzido;
+	public string $descricao;
+
+	function __construct($nome, $consumo, $autonomia, $preco_unitario, $kwh_unitario, $bateria_kwh, $preco_bateria, $descricao_placeholder) {
+		$this->nome = $nome;
+		$this->preco_unitario = $preco_unitario;
+		$this->kwh_unitario = $kwh_unitario;
+		$this->bateria_kwh = $bateria_kwh;
+		$this->preco_bateria = $preco_bateria;
+		$this->descricao_placeholder = $descricao_placeholder;
+		$this->bateria = new Bateria($consumo, $autonomia);
+	}
+
+	function calcular($consumo, $orcamento) {
+		$qtd = ceil($consumo / $this->kwh_unitario);
+		$this->custo_sistema = $qtd * $this->preco_unitario;
+		$this->descricao = str_replace('?', $qtd, $this->descricao_placeholder);
+
+		if (($this->custo_sistema + $this->bateria->preco) < $orcamento) {
+			$this->bateria->capacidade_kwh_reduzido = $this->bateria->capacidade_kwh;
+			$this->bateria->preco_reduzido = $this->bateria->preco;
+		} else {
+			$this->bateria->reduzir_custo($this->custo_sistema, $orcamento);
+		}
+
+		$this->custo_total = $this->custo_sistema + $this->preco_bateria;
+		$this->custo_total_reduzido = $this->custo_sistema + $this->bateria->preco_reduzido;
+	}
+}
+
+
+$bateria_kwh_real = ($autonomia === 'negativo') ? 0 : $consumo * $autonomia;
+$preco_bateria_real = $bateria_kwh_real * PRECO_UNITARIO_BATERIA;
+$sistemas = [];
+
+foreach ($local as $l) {
+	$sist = match ($l) {
+		'rio' => new Sistema("Hídrico", $consumo, $autonomia, PRECO_UNITARIO_HIDRICO, KWH_UNITARIO_HIDRICO, $bateria_kwh_real, $preco_bateria_real, "Recomendamos um sistema com ? turbinas hídricas."),
+		'sol' => new Sistema("Solar", $consumo, $autonomia, PRECO_UNITARIO_SOLAR, KWH_UNITARIO_SOLAR, $bateria_kwh_real, $preco_bateria_real, "Recomendamos um sistema solar com capacidade de ? kWh de painéis solares."),
+		'vento' => new Sistema("Eólico", $consumo, $autonomia, PRECO_UNITARIO_EOLICO, KWH_UNITARIO_EOLICO, $bateria_kwh_real, $preco_bateria_real, "Recomendamos um sistema com ? turbinas eólicas.")
+	};
+
+	$sist->calcular($consumo, $orcamento);
+	$sistemas[] = $sist;
+}
 ?>
