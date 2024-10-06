@@ -1,0 +1,40 @@
+body {
+    background: url('./../img/index-background.png') no-repeat center / cover;
+    margin: 0;
+    padding: 0;
+}
+
+#crud-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+.crud-form {
+    display: block;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    box-shadow: rgba(0,0,0, .15) 0px 1px 0px 2.5px;
+    box-sizing: border-box;
+    border-radius: 17px;
+}
+
+h1{
+    font-family: sans-serif;
+    color: white;
+    text-shadow: 1px 1px 2.5px black;
+}
+
+.crud-form input {
+    border-radius: 10px;
+    width: 90%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, .65);
+    color: black;
+    border: solid black 1px;
+}
+

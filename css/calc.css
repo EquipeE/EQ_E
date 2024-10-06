@@ -6,8 +6,9 @@ body {
 }
 
 h1{
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+    	font-family: sans-serif;
+	text-shadow: 1px 1px 2.5px black;
 }
 
 .container {
@@ -18,9 +19,10 @@ h1{
 }
 
 .calculadora {
-    border: solid black 2px;
-    border-radius: 10px;
-    
+    backdrop-filter: blur(5px);
+    box-shadow: rgba(0,0,0, 0.15) 0px 1px 0px 2.5px;
+    box-sizing: border-box;
+    border-radius: 17px;
 }
 
 .dados {

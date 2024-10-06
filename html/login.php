@@ -15,11 +15,11 @@
         <a href='../index.php'><img id="logo" alt="Logo" src="./../img/logo.png"></a>
 	<form><input type='image' src='./../img/ico/search.svg'><input type='text' placeholder='Pesquisar'></form>
         <ul class="menu">
-            <li><a href="../index.php"><img src='../img/ico/home.svg'>Home</a></li>
-            <li><a href="../html/blog.php"><img src='../img/ico/book.svg'>Blog</a></li>
-            <li><a href="../html/calc.php"><img id="calc-img" src='../img/ico/calc.svg'>Calculadora</a></li>
+            <li><a href="../index.php"><img class='icon' src='../img/ico/home.svg'>Home</a></li>
+            <li><a href="../html/blog.php"><img class='icon' src='../img/ico/book.svg'>Blog</a></li>
+            <li><a href="../html/calc.php"><img class='icon' src='../img/ico/calc.svg'>Calculadora</a></li>
             <li class="drop">
-                <a href="#"><img src='../img/ico/user.svg'>Conta</a>
+                <a href="#"><img class='icon' src='../img/ico/user.svg'>Conta</a>
 		<ul class="conteudo">
 		    <?php include '../php/dynamic_login_logout.php' ?>
                     <li><a href="../html/cadastro.php">Cadastro</a></li>
@@ -37,8 +37,6 @@
             <input type="password" name="senha" id="senha" pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[\W_]).{8,}" title="Deve conter ao menos: Um caracter especial, oito digitos, uma letra maiúscula e um número" placeholder="Senha" required> 
             <span id="togglesenha" class="eye">👁</span>
             </div>
-	    <a href="" id="esq">Esqueceu a senha?</a>
-            <br>
             <br>
             <input type="submit" value="Login">
         </form>

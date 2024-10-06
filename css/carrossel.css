@@ -3,7 +3,11 @@
     	height: 50vh;
         max-width: 1350px; 
         overflow: hidden;
-    	margin: 3rem auto 3rem auto; 
+    	margin: 3rem auto 5rem auto; 
+
+	box-shadow: rgba(0,0,0, 0.15) 0px 1px 0px 2.5px;
+	box-sizing: border-box;
+	border-radius: 17px;
 }
 .slides {
         display: flex;
@@ -12,7 +16,7 @@
 .slide {
        flex: 0 0 100%; 
        position: relative; 
-       height: 400px; 
+       height: 50vh; 
 }
 .slide img {
        width: 100%; 

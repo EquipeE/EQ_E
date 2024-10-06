@@ -17,37 +17,28 @@ h1{
     margin-bottom: 10px;
     margin-top: 10px;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.637);
+    background-color: rgba(255, 255, 255, .65);
     color: black;
     border: solid black 1px;
 }
-
-.form-group input::placeholder {
-    font-size: larger;
-}
-
-.form-group input:hover {
-    box-shadow: rgba(0,0,0, 0.15) 0px 0px 0px 2px;
-}
-
+.form-group input::placeholder { font-size: larger; }
+.form-group input:hover { box-shadow: rgba(0,0,0, 0.15) 0px 0px 0px 2px; }
 .form-group input[type="submit"]{
     width: 95%;
     padding: 10px;
     cursor: pointer;
     border-radius: 20px;
-    background: linear-gradient(90deg, rgba(0, 167, 50, 0.719) 50%, rgba(255, 255, 255, 0.87) 50%);
+    background: linear-gradient(90deg, rgba(0, 167, 50, .75) 50%, rgba(255, 255, 255, .9) 50%);
     background-size: 210%;
     background-position: right;
     color: black;
     transition: background-position 500ms ease-in-out, color 500ms;
 }
-
 .form-group input[type="submit"]:hover {
     color: white;
     box-shadow: none;
     background-position: left;
 }
-
 .form-group {
     margin: auto;
     width: 80%;
@@ -56,7 +47,6 @@ h1{
     align-items: center;
     flex-direction: column;
 }
-
 #container {
     display: block;
     margin: 3rem auto auto auto;
@@ -64,7 +54,7 @@ h1{
     padding: 20px;
     width: 70vw;
     max-width: 600px;
-    box-shadow: rgba(0,0,0, 0.15) 0px 1px 0px 2.5px;
+    box-shadow: rgba(0,0,0, .15) 0px 1px 0px 2.5px;
     box-sizing: border-box;
     border-radius: 17px;
 }
@@ -86,8 +76,8 @@ h1{
 .eye {
     cursor: pointer;
     font-size: 20px;
-    color: rgba(0, 0, 0, 0.479);
-    background-color: rgba(255, 255, 255, 0.637);
+    color: rgba(0, 0, 0, .5);
+    background-color: rgba(255, 255, 255, 0.65);
     padding: 2px 4px 6px 4px;
     border: solid black 1px;
     border-top-right-radius: 10px;
@@ -96,7 +86,7 @@ h1{
 }
 .eye:hover {
     color: white;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.459), rgba(0, 0, 0, 0.733));
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, .5), rgba(0, 0, 0, .75));
 }
 #resultado, #resultado-erro {
 	display: flex;
@@ -112,13 +102,7 @@ h1{
 	font-weight: bold;
 }
 @media only screen and (max-width: 600px) {
-	#resultado, #resultado-erro {
-		font-size: 9pt;
-	}
+	#resultado, #resultado-erro { font-size: 9pt; }
 }
-#resultado {
-	background-color: #8aeda4;
-}
-#resultado-erro {
-	background-color: #e60000;
-}
+#resultado { background-color: rgba(138, 237, 164, .75); }
+#resultado-erro { background-color: rgba(230, 0, 0, .75); }
