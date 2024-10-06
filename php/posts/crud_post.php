@@ -3,7 +3,7 @@ require_once __DIR__ . '/../db.php';
 
 function update_placeholders() {
 	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
-		die("Erro ao abrir o banco.");
+		return "Erro ao abrir o banco.";
 
 	if (!$res = $conexao->query("SELECT * FROM Posts ORDER BY id DESC")->fetch_all(MYSQLI_BOTH))
 		die($conexao->error);
@@ -32,7 +32,7 @@ function update_placeholders() {
 	$final = str_replace("!!!CARROSSEL", $carrosselText, str_replace("!!!CARDS", $cardsText, $template));
 
 	if (!file_put_contents(__DIR__ . "/../../index.php", $final))
-		die("Erro gerando index.php");
+		return "Erro gerando index.php";
 
 	chown(__DIR__ . "/../../index.php", "apache");
 
@@ -40,71 +40,75 @@ function update_placeholders() {
 	$final = str_replace("!!!BLOG", $blogText, $template);
 
 	if (!file_put_contents(__DIR__ . "/../../html/blog.php", $final))
-		die("Erro gerando blog.php");
+		return "Erro gerando blog.php";
 
 	chown(__DIR__ . "/../../html/blog.php", "apache");
 }
 
 function add_post($titulo, $img, $conteudo) {
 	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
-		die("Erro ao abrir o banco.");
+		return "Erro ao abrir o banco";
 
 	if (strlen($titulo) > MAX_TITLE_LENGTH || strlen($img) > MAX_IMAGE_PATH_LENGTH)
-		die("Seu titulo ou caminho da imagem são muito longos. O limite é de {MAX_TITLE_LENGTH} caracteres.\n");
+		return "Dados muito longos";
 	if (!file_exists(__DIR__ . "/../../img/posts/{$img}"))
-		die("A imagem {$img} não existe.\n");
+		return "A imagem {$img} não existe";
 	if (!file_exists($conteudo))
-		die("O arquivo de conteudo {$argv[3]} não existe.\n");
+		return "O arquivo {$argv[3]} não existe";
 
 	if (!$cont = file_get_contents($conteudo))
-		die("Erro lendo o arquivo de counteúdo {$conteudo}.\n");
+		return "Erro lendo o arquivo {$conteudo}";
 
 	$cont = str_replace("\n", "<br>", $cont);
 
 	if (!$res = $conexao->execute_query("INSERT INTO Posts VALUES (?, ?, ?, ?)", [NULL, $titulo, $img, $cont]))
 		die($conexao->error);
 
-	update_placeholders();	
+	echo update_placeholders() . "\n";
 	$conexao->close();
 	unlink($conteudo);
+
+	return "Adicionado com sucesso";
 }
 
 function update_post($id, $titulo, $img, $conteudo) {
 	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
-		die("Erro ao abrir o banco.");
+		return "Erro ao abrir o banco";
 
 	if (strlen($titulo) > MAX_TITLE_LENGTH || strlen($img) > MAX_IMAGE_PATH_LENGTH)
-		die("Seu titulo ou caminho da imagem são muito longos. O limite é de {MAX_TITLE_LENGTH} caracteres.\n");
+		return "Dados muito longos";
 	if (!file_exists(__DIR__ . "/../../img/posts/{$img}"))
-		die("A imagem {$img} não existe.\n");
+		return "A imagem {$img} não existe";
 	if (!file_exists($conteudo))
-		die("O arquivo de conteudo {$conteudo} não existe.\n");
+		return "O arquivo {$conteudo} não existe";
 
 	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$id]))
 		die($conexao->error);
 	if ($res->num_rows === 0)
-		die("Não há post com esse id.\n");
+		return "Não há post com esse id";
 
 	if (!$cont = file_get_contents($conteudo))
-		die("Erro lendo o arquivo de counteúdo {$conteudo}.\n");
+		return "Erro lendo o arquivo {$conteudo}";
 
 	$cont = str_replace("\n", "<br>", $cont);
 
 	if (!$res = $conexao->execute_query("UPDATE Posts SET titulo = ?, imagem = ?, conteudo = ? WHERE id = ?", [$titulo, $img, $cont, $id]))
 		die($conexao->error);
 
-	update_placeholders();
+	echo update_placeholders() . "\n";
 	$conexao->close();
+
+	return "Atualizado com sucesso";
 }
 
 function delete_post($id) {
 	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
-		die("Erro ao abrir o banco.");
+		return "Erro ao abrir o banco";
 
 	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$id]))
 		die($conexao->error);
 	if (!$res = $res->fetch_assoc())
-		die("Não há post com esse id.\n");
+		return "Não há post com esse id";
 
 	$post_img = $res['imagem'];
 
@@ -118,7 +122,9 @@ function delete_post($id) {
 	if (!$res = $conexao->execute_query("DELETE FROM Posts WHERE id = ?", [$id]))
 		die($conexao->error);
 
-	update_placeholders();
+	echo update_placeholders() . "\n";
 	$conexao->close();
+
+	return "Apagado com sucesso";
 }
 ?>

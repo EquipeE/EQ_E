@@ -1,4 +1,5 @@
 <?php $index_path = "../index.php"; include "./../php/check_admin.php" ?>
+<?php if ($_SERVER['REQUEST_METHOD'] == "POST") $msg = include "../php/posts/{$_GET['op']}_post.php" ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -30,27 +31,29 @@
     </nav><br>
 
     <div id="crud-container">
-    <form class='crud-form' action="../php/posts/add_post.php" method="POST" enctype="multipart/form-data">
+    <form class='crud-form' action="admin.php?op=add" method="POST" enctype="multipart/form-data">
     	<h1>Criar post</h1>
 	<input type="text" name="titulo" placeholder="titulo"><br>
 	<input type="file" name="imagem"><br>
-	<textarea name="conteudo" rows="12" cols="40"></textarea><br>
+	<textarea name="conteudo" rows="12" cols="40" placeholder="Conteudo da postagem"></textarea><br>
+
 	<input type="submit" value="Criar">
     </form>
-    <form class='crud-form' action="../php/posts/update_post.php" method="POST" enctype="multipart/form-data">
+    <form class='crud-form' action="admin.php?op=update" method="POST" enctype="multipart/form-data">
     	<h1>Atualizar post</h1>
 	<input type="number" name="id" placeholder="id"><br>
 	<input type="text" name="titulo" placeholder="titulo"><br>
 	<input type="file" name="imagem"><br>
-	<textarea name="conteudo" rows="12" cols="40"></textarea><br>
+	<textarea name="conteudo" rows="12" cols="40" placeholder="Conteudo da postagem"></textarea><br>
 	<input type="submit" value="Atualizar">
     </form>
-    <form class='crud-form' action="../php/posts/delete_post.php" method="POST">
+    <form class='crud-form' action="admin.php?op=delete" method="POST">
     	<h1>Deletar post</h1>
 	<input type="number" name="id" placeholder="id"><br>
 	<input type="submit" value="Deletar">
     </form>
     </div>
+    <?php include '../php/show_message_box.php' ?>
     <footer>
 	<p id="titulo-footer">Contato</p>
 	<div id="contatos">
@@ -59,6 +62,5 @@
 		<p><img class='icon' src='../img/ico/mail.svg'>equipesenae@gmail.com</p>
 	</div>
     </footer>
-
 </body>
 </html>

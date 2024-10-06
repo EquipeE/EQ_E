@@ -38,3 +38,22 @@ h1{
     border: solid black 1px;
 }
 
+#resultado, #resultado-erro {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50vmin;
+	height: 15vmin;
+	color: white;
+	margin: 2rem auto;
+	border-radius: 10px;
+	font-family: arial;
+	font-size: x-large;
+	font-weight: bold;
+}
+@media only screen and (max-width: 600px) {
+	#resultado, #resultado-erro { font-size: 9pt; }
+}
+#resultado { background-color: rgba(138, 237, 164, .75); }
+#resultado-erro { background-color: rgba(230, 0, 0, .75); }
+

@@ -1,3 +1,4 @@
+<?php $msg = include './../php/comentarios/add_comment.php' ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -29,26 +30,26 @@
     </nav><br>
 
    <section id="post-header">
-	    <?php include("../php/posts/get_post_header.php") ?>
+	    <?php include '../php/posts/get_post_header.php' ?>
     </section>
     <main>
-	    <?php include("../php/posts/get_post.php") ?>
+	    <?php include '../php/posts/get_post.php' ?>
     </main>
     <section id="ultimas-postagens">
 	<h2>Ultimas postagens</h2>
 	<div id="cards-container">
-		<?php include("../php/posts/get_last_posts.php") ?>
+		<?php include '../php/posts/get_last_posts.php' ?>
 	</div>
     </section>
     <section id="comentarios-container">
 	<h2>Comentários</h2>
-	<form action="../php/comentarios/add_comment.php" method="POST">
+	<form action="post.php?id=<?php echo $_GET['id'] ?>" method="POST">
 	<textarea cols="40" rows="12" name="comment" placeholder="Escreva aqui seu comentário."></textarea>
-	<input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
 	<input type="submit" value="Comentar">
 	</form>
+	<?php include '../php/show_message_box.php' ?>
 	<div id="comentarios">
-		<?php include("../php/comentarios/get_post_comments.php") ?>
+		<?php include '../php/comentarios/get_post_comments.php' ?>
 	</div>
     </section><br>
     <footer>

@@ -33,7 +33,6 @@ if (!session_start(["use_strict_mode" => 1, "cookie_httponly" => 1]))
 $_SESSION['id'] = $res['id'];
 
 $success = true;
-return "Logado com sucesso";
-
 $conexao->close();
+return "Logado com sucesso";
 ?>
