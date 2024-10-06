@@ -12,7 +12,7 @@
 <body>
     <nav>
         <a href='../index.php'><img id="logo" alt="Logo" src="./../img/logo.png"></a>
-	<form><input type='image' src='./../img/ico/search.svg'><input type='text' placeholder='Pesquisar'></form>
+	<form action='search.php' method='GET'><input type='image' src='./../img/ico/search.svg'><input type='text' placeholder='Pesquisar' name='busca'></form>
         <ul class="menu">
             <li><a href="../index.php"><img class='icon' src='../img/ico/home.svg'>Home</a></li>
             <li><a id="current-page" href="../html/blog.php"><img class='icon' src='../img/ico/book.svg'>Blog</a></li>
@@ -36,7 +36,7 @@
 <a href='./post.php?id=2'><div class='card'><img src='./../img/posts/79972387efe365d9b8ef3a4713d642c5b072d751d66abfe2255a7240db7e1c20.png'><div class='card-text'>História chocante acontece na USP</div></div></a>
 <a href='./post.php?id=1'><div class='card'><img src='./../img/posts/7e9083709e974ec034faf4088e73b08a2f0b47b7373b721cf743a10a08e5d2a6.png'><div class='card-text'>Stallman's Momentary Lapse of Reason</div></div></a>
 
-    </main><br>
+    </main>
     <footer>
 	<p id="titulo-footer">Contato</p>
 	<div id="contatos">

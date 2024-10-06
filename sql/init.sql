@@ -15,6 +15,7 @@ CREATE TABLE Posts(
     titulo VARCHAR(100) NOT NULL UNIQUE,
     imagem VARCHAR(100) NOT NULL,
     conteudo TEXT NOT NULL,
+    FULLTEXT(titulo, conteudo),
     PRIMARY KEY(id)
 );
 

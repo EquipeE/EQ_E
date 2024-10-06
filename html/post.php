@@ -13,7 +13,7 @@
 <body>
     <nav>
         <a href='../index.php'><img id="logo" alt="Logo" src="./../img/logo.png"></a>
-	<form><input type='image' src='./../img/ico/search.svg'><input type='text' placeholder='Pesquisar'></form>
+	<form action='search.php' method='GET'><input type='image' src='./../img/ico/search.svg'><input type='text' placeholder='Pesquisar' name='busca'></form>
         <ul class="menu">
             <li><a href="../index.php"><img class='icon' src='../img/ico/home.svg'>Home</a></li>
             <li><a id="current-page" href="../html/blog.php"><img class='icon' src='../img/ico/book.svg'>Blog</a></li>
