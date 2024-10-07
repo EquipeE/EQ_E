@@ -32,20 +32,6 @@
 
        <div class="container">
 		<h1>Resultados</h1>
-		<!--
-                <table>
-                    <tr>
-                        <th><strong>Consumo Diário:</strong></th> 
-                        <th><strong>Característica da localização:</strong></th> 
-                        <th><strong>Orçamento:</strong></th>
-                    </tr>
-                    <tr>
-                        <td><?php echo $consumo ?> kWh</td>
-                        <td><?php echo implode($local) ?></td>
-                        <td>R$<?php echo number_format($orcamento, 2, ',', '.') ?></td>
-                    </tr>
-		</table>
-		-->
 		<div id='info-grid' class='blurred-card'>
 			<p>Consumo diário:</p>
 			<p>Orçamento:</p>

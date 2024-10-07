@@ -15,8 +15,10 @@ function update_placeholders() {
 	foreach($res as $r)
 		$blogText .= "<a href='./post.php?id={$r['id']}'><div class='card blurred-card'><img src='./../img/posts/{$r['imagem']}'><div class='card-text'>{$r['titulo']}</div></div></a>\n";
 
-	foreach($res as &$r) 
+	foreach($res as &$r)
 		$r['conteudo'] = explode("<br>", $r['conteudo'], 2)[0];
+
+	unset($r);
 
 	$res = array_slice($res, 0, 4); /* Cards no index usam os primeiros 4 posts */
 
@@ -64,8 +66,8 @@ function add_post($titulo, $img, $conteudo) {
 	if (!$res = $conexao->execute_query("INSERT INTO Posts VALUES (?, ?, ?, ?)", [NULL, $titulo, $img, $cont]))
 		die($conexao->error);
 
-	echo update_placeholders() . "\n";
 	$conexao->close();
+	echo update_placeholders() . "\n";
 	unlink($conteudo);
 
 	return "Adicionado com sucesso";
@@ -95,8 +97,8 @@ function update_post($id, $titulo, $img, $conteudo) {
 	if (!$res = $conexao->execute_query("UPDATE Posts SET titulo = ?, imagem = ?, conteudo = ? WHERE id = ?", [$titulo, $img, $cont, $id]))
 		die($conexao->error);
 
-	echo update_placeholders() . "\n";
 	$conexao->close();
+	echo update_placeholders() . "\n";
 
 	return "Atualizado com sucesso";
 }
@@ -122,8 +124,8 @@ function delete_post($id) {
 	if (!$res = $conexao->execute_query("DELETE FROM Posts WHERE id = ?", [$id]))
 		die($conexao->error);
 
-	echo update_placeholders() . "\n";
 	$conexao->close();
+	echo update_placeholders() . "\n";
 
 	return "Apagado com sucesso";
 }

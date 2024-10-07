@@ -84,6 +84,7 @@ class Sistema {
 			$this->bateria->reduzir_custo($this->custo_sistema, $orcamento);
 		}
 
+		$this->bateria->calcular_capacidadesAh();
 		$this->custo_total = $this->custo_sistema + $this->preco_bateria;
 		$this->custo_total_reduzido = $this->custo_sistema + $this->bateria->preco_reduzido;
 	}
