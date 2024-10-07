@@ -1,0 +1,58 @@
+body {
+	background: url('./../img/index-background.png') no-repeat center / cover;
+	min-height: 100vh;
+	color: white;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+h1 {
+	text-align: center;
+    	font-family: sans-serif;
+	text-shadow: 1px 1px 2.5px black;
+}
+
+.blurred-card {
+	backdrop-filter: blur(5px);
+	box-shadow: rgba(0,0,0, .15) 0px 1px 0px 2.5px;
+	box-sizing: border-box;
+	border-radius: 17px;
+}
+
+#resultado, #resultado-erro {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 50vmin;
+	height: 15vmin;
+	color: white;
+	margin: 2rem auto;
+	border-radius: 10px;
+	font-family: arial;
+	font-size: x-large;
+	font-weight: bold;
+}
+@media only screen and (max-width: 600px) {
+	#resultado, #resultado-erro { font-size: 9pt; }
+}
+#resultado { background-color: rgba(138, 237, 164, .75); }
+#resultado-erro { background-color: rgba(230, 0, 0, .75); }
+
+textarea {
+	background-color: rgba(0, 0, 0, 0);
+	color: white;
+	border: 0;
+    	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+textarea::placeholder {
+	color: white;
+	font-weight: bold;
+	font-size: 14pt;
+}
+.icon {
+	display: inline;
+	vertical-align: middle;
+	margin-right: 2px;
+}

@@ -5,4 +5,3 @@ function mudarVisibilidade(id) {
 }
 
 document.getElementById("togglesenha").addEventListener("click", () => mudarVisibilidade("senha"));
-document.getElementById("toggleconfsenha").addEventListener("click", () => mudarVisibilidade("confsenha"));

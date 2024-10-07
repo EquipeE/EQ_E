@@ -1,11 +1,3 @@
-body {
-    	background: url('./../img/index-background.png') no-repeat center / cover;
-	margin: 0;
-	padding: 0;
-	background-color: #f4f4f4;
-	color: white;
-}
-
 #post-header { text-align: center; }
 #post-header img {
 	display: block;
@@ -53,10 +45,6 @@ main {
 	height: 30vmin;
 
 	overflow: hidden;
-	backdrop-filter: blur(5px);
-	box-shadow: rgba(0,0,0, 0.15) 0px 1px 0px 2.5px;
-	box-sizing: border-box;
-	border-radius: 17px;
 }
 @media only screen and (max-width: 700px) {
 	#cards-container {
@@ -84,16 +72,7 @@ form {
 }
 textarea {
 	width: 100%;
-	background-color: rgba(0, 0, 0, 0);
-	color: white;
-	border: 0;
-    	box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 	margin-bottom: 1rem;
-}
-textarea::placeholder {
-	color: white;
-	font-weight: bold;
-	font-size: 14pt;
 }
 form input[type="submit"] {
 	width: 30vmin;
@@ -103,24 +82,6 @@ form input[type="submit"] {
 	background-color: rgba(32, 103, 255);
 	color: white;
 }
-#resultado, #resultado-erro {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 50vmin;
-	height: 7vmin;
-	color: white;
-	margin: 2rem auto;
-	border-radius: 10px;
-	font-family: arial;
-	font-size: x-large;
-	font-weight: bold;
-}
-@media only screen and (max-width: 600px) {
-	#resultado, #resultado-erro { font-size: 9pt; }
-}
-#resultado { background-color: rgba(138, 237, 164, .75); }
-#resultado-erro { background-color: rgba(230, 0, 0, .75); }
 
 #comentarios-container > :first-child { background-color: black; }
 .comentario {

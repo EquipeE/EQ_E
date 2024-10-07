@@ -13,7 +13,7 @@ if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE MATCH(titulo, con
 $res = $res->fetch_all(MYSQLI_BOTH);
 
 foreach($res as $r)
-	echo "<a href='./post.php?id={$r['id']}'><div class='card'><img src='./../img/posts/{$r['imagem']}'><div class='card-text'>{$r['titulo']}</div></div></a>";
+	echo "<a href='./post.php?id={$r['id']}'><div class='card blurred-card'><img src='./../img/posts/{$r['imagem']}'><div class='card-text'>{$r['titulo']}</div></div></a>";
 
 $conexao->close();
 ?>

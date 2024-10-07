@@ -1,15 +1,4 @@
-body {
-    background: url(./../img/login-background.png) no-repeat center / cover;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-}
-
-h1{
-    font-family: sans-serif;
-    color: white;
-    text-shadow: 1px 1px 2.5px black;
-}
+body { background: url(./../img/login-background.png) no-repeat center / cover; }
 
 .form-group input {
     border-radius: 10px;
@@ -50,13 +39,9 @@ h1{
 #container {
     display: block;
     margin: 3rem auto auto auto;
-    backdrop-filter: blur(5px);
     padding: 20px;
     width: 70vw;
     max-width: 600px;
-    box-shadow: rgba(0,0,0, .15) 0px 1px 0px 2.5px;
-    box-sizing: border-box;
-    border-radius: 17px;
 }
 .password-container {
     width: 99%;
@@ -88,21 +73,3 @@ h1{
     color: white;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, .5), rgba(0, 0, 0, .75));
 }
-#resultado, #resultado-erro {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 50vmin;
-	height: 7vmin;
-	color: white;
-	margin: 2rem auto;
-	border-radius: 10px;
-	font-family: arial;
-	font-size: x-large;
-	font-weight: bold;
-}
-@media only screen and (max-width: 600px) {
-	#resultado, #resultado-erro { font-size: 9pt; }
-}
-#resultado { background-color: rgba(138, 237, 164, .75); }
-#resultado-erro { background-color: rgba(230, 0, 0, .75); }

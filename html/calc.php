@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M-redes</title>
+    <link rel="stylesheet" href="./../css/common.css">
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/calc.css">
     <link rel="stylesheet" href="./../css/footer.css">
@@ -19,7 +20,7 @@
             <li><a id="current-page" href="../html/calc.php"><img class='icon' src='../img/ico/calc.svg'>Calculadora</a></li>
             <li class="drop">
                 <a href="#"><img class='icon' src='../img/ico/user.svg'>Conta</a>
-		<ul class="conteudo">
+		<ul class='conteudo blurred-card'>
 		    <?php include '../php/dynamic_login_logout.php' ?>
                     <li><a href="../html/cadastro.php">Cadastro</a></li>
 		    <?php include '../php/admin_screen_button.php' ?>
@@ -30,7 +31,7 @@
 
     <h1>Calculadora </h1>
     <div class="container">
-        <form class="calculadora" action="resultado.php" method="POST">
+        <form class="blurred-card" action="resultado.php" method="POST">
             <div class="dados">
                 <label for="consumo"><h3>Consumo diário de energia (kWh):</h3></label>
                 <input type="number" name="consumo" id="consumo" placeholder="Energia consumida" required>

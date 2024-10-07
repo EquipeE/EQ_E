@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M-REDES</title>
+    <link rel="stylesheet" href="./../css/common.css">
     <link rel="stylesheet" href="./../css/nav.css">
     <link rel="stylesheet" href="./../css/cadastro.css">
     <link rel="website icon" type="img" href="./../img/logo.png">
@@ -20,7 +21,7 @@
             <li><a href="../html/calc.php"><img class='icon' src='../img/ico/calc.svg'>Calculadora</a></li>
             <li class="drop">
                 <a href="#"><img class='icon' src='../img/ico/user.svg'>Conta</a>
-		<ul class="conteudo">
+		<ul class='conteudo blurred-card'>
 		    <?php include '../php/dynamic_login_logout.php' ?>
                     <li><a href="../html/cadastro.php">Cadastro</a></li>
 		    <?php include '../php/admin_screen_button.php' ?>
@@ -29,7 +30,7 @@
         </ul>
     </nav><br>
 
-    <div id="container" onsubmit="return validarSenha()">
+    <div id="container" class='blurred-card' onsubmit="return validarSenha()">
         <form class="form-group" action="cadastro.php" method="POST">   
             <h1>Cadastro</h1>
             <input type="text" name="nome" id="nome" placeholder="Nome" required>

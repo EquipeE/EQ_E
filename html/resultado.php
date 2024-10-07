@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados</title>
+    <link rel="stylesheet" href="./../css/common.css">
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/resultado.css">
     <link rel="stylesheet" href="./../css/footer.css">
@@ -20,7 +21,7 @@
             <li><a id="current-page" href="../html/calc.php"><img class='icon' src='../img/ico/calc.svg'>Calculadora</a></li>
             <li class="drop">
                 <a href="#"><img class='icon' src='../img/ico/user.svg'>Conta</a>
-		<ul class="conteudo">
+		<ul class='conteudo blurred-card'>
 		    <?php include '../php/dynamic_login_logout.php' ?>
                     <li><a href="../html/cadastro.php">Cadastro</a></li>
 		    <?php include '../php/admin_screen_button.php' ?>
@@ -30,8 +31,8 @@
     </nav><br>
 
        <div class="container">
-            <div class="group-container">
-                <h1>Resultados</h1>
+		<h1>Resultados</h1>
+		<!--
                 <table>
                     <tr>
                         <th><strong>Consumo Diário:</strong></th> 
@@ -43,11 +44,19 @@
                         <td><?php echo implode($local) ?></td>
                         <td>R$<?php echo number_format($orcamento, 2, ',', '.') ?></td>
                     </tr>
-                </table>
+		</table>
+		-->
+		<div id='info-grid' class='blurred-card'>
+			<p>Consumo diário:</p>
+			<p>Orçamento:</p>
+			<p>Autonomia desejada da bateria:</p>
+			<p>Características da localização:</p>
+			<?php include '../php/show_calc_info.php'?>
+		</div>
+		<main class='blurred-card'>
 		<?php include '../php/resultado.php' ?>
-
-                <a href="excelCalc.php"><button>Fazer Nova Simulação</button></a>
-            </div>
+                <a href="calc.php"><button>Fazer Nova Simulação</button></a>
+		</main>
         </div>
     <footer>
 	<p id="titulo-footer">Contato</p>

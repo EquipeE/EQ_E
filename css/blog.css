@@ -1,15 +1,3 @@
-body {
-    	background: url('./../img/index-background.png') no-repeat center / cover;
-	margin: 0;
-	padding: 0;
-	background-color: #f4f4f4;
-	color: white;
-}
-h1 {
-	text-align: center;
-    	font-family: sans-serif;
-	text-shadow: 1px 1px 2.5px black;
-}
 main, .card, main a {
 	display: flex;
 	justify-content: space-between;
@@ -33,10 +21,6 @@ main a {
 	height: 40vmin;
 	margin-bottom: 2rem;
 	overflow: hidden;
-    	backdrop-filter: blur(5px);
-    	box-shadow: rgba(0,0,0, 0.15) 0px 1px 0px 2.5px;
-    	box-sizing: border-box;
-    	border-radius: 17px;
 }
 .card img {
 	height: 100%;

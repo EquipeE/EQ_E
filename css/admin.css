@@ -1,30 +1,15 @@
-body {
-    background: url('./../img/index-background.png') no-repeat center / cover;
-    margin: 0;
-    padding: 0;
-}
-
 #crud-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: flex-start;
 	flex-wrap: wrap;
+	margin-top: 1rem;
 }
 .crud-form {
     display: block;
     margin-bottom: 1rem;
-    backdrop-filter: blur(5px);
     padding: 20px;
-    box-shadow: rgba(0,0,0, .15) 0px 1px 0px 2.5px;
-    box-sizing: border-box;
-    border-radius: 17px;
-}
-
-h1{
-    font-family: sans-serif;
-    color: white;
-    text-shadow: 1px 1px 2.5px black;
 }
 
 .crud-form input {
@@ -37,23 +22,3 @@ h1{
     color: black;
     border: solid black 1px;
 }
-
-#resultado, #resultado-erro {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 50vmin;
-	height: 15vmin;
-	color: white;
-	margin: 2rem auto;
-	border-radius: 10px;
-	font-family: arial;
-	font-size: x-large;
-	font-weight: bold;
-}
-@media only screen and (max-width: 600px) {
-	#resultado, #resultado-erro { font-size: 9pt; }
-}
-#resultado { background-color: rgba(138, 237, 164, .75); }
-#resultado-erro { background-color: rgba(230, 0, 0, .75); }
-

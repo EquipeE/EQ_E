@@ -13,7 +13,7 @@ function update_placeholders() {
 	$cardsText = "";
 
 	foreach($res as $r)
-		$blogText .= "<a href='./post.php?id={$r['id']}'><div class='card'><img src='./../img/posts/{$r['imagem']}'><div class='card-text'>{$r['titulo']}</div></div></a>\n";
+		$blogText .= "<a href='./post.php?id={$r['id']}'><div class='card blurred-card'><img src='./../img/posts/{$r['imagem']}'><div class='card-text'>{$r['titulo']}</div></div></a>\n";
 
 	foreach($res as &$r) 
 		$r['conteudo'] = explode("<br>", $r['conteudo'], 2)[0];
@@ -21,7 +21,7 @@ function update_placeholders() {
 	$res = array_slice($res, 0, 4); /* Cards no index usam os primeiros 4 posts */
 
 	foreach($res as $r)
-		$cardsText .= "<div class='card'><a href='./html/post.php?id={$r['id']}'><img src='./img/posts/{$r['imagem']}'><div class='card-text'><h3 id='titulo'>{$r['titulo']}</h3><p id='conteudo'>{$r['conteudo']}</p></div></div></a>\n";
+		$cardsText .= "<div class='card blurred-card'><a href='./html/post.php?id={$r['id']}'><img src='./img/posts/{$r['imagem']}'><div class='card-text'><h3 id='titulo'>{$r['titulo']}</h3><p id='conteudo'>{$r['conteudo']}</p></div></div></a>\n";
 
 	array_pop($res); /* Carrossel usa apenas 3 posts */
 
