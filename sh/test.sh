@@ -104,7 +104,7 @@ printf "\n$AZUL--------- Comentário ---------$RESET\n"
 
 post='AAAA'
 comentario=`openssl rand -hex 1000`
-cmd="curl -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
 printf "Post: $post\nComentario: $comentario\n"
 test_case "Comentário em post inexistente" "$cmd" "$cmd_filter"
 printf "\n\nOlhando banco...\n\n"
@@ -112,7 +112,7 @@ mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
 
 post=2
 comentario=`openssl rand -hex 35000`
-cmd="curl -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
 printf "Post: $post\nComentario: $comentario\n"
 test_case "Comentário muito longo" "$cmd" "$cmd_filter"
 printf "\n\nOlhando banco...\n\n"
@@ -120,7 +120,7 @@ mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
 
 post=2
 comentario=`openssl rand -hex 1000`
-cmd="curl -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+cmd="curl -L -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
 printf "Post: $post\nComentario: $comentario\n"
 test_case "Comentário sem estar logado" "$cmd" "$cmd_filter"
 printf "\n\nOlhando banco...\n\n"
@@ -128,7 +128,7 @@ mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
 
 post="'', '', ''); DROP DATABASE mredes --"
 comentario=`openssl rand -hex 1000`
-cmd="curl -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
 printf "Post: $post\nComentario: $comentario\n"
 test_case "SQL Injection" "$cmd" "$cmd_filter"
 printf "\n\nOlhando banco...\n\n"
@@ -136,7 +136,7 @@ mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
 
 post=2
 comentario='<script>alert(1)</script>'
-cmd="curl -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
 printf "Post: $post\nComentario: $comentario\n"
 test_case "XSS" "$cmd" "$cmd_filter"
 printf "\n\nOlhando banco...\n\n"
@@ -144,7 +144,7 @@ mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
 
 post=''
 comentario=`openssl rand -hex 1000`
-cmd="curl -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
 printf "Post: $post\nComentario: $comentario\n"
 test_case "Post nulo" "$cmd" "$cmd_filter"
 printf "\n\nOlhando banco...\n\n"
@@ -152,7 +152,7 @@ mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
 
 post=2
 comentario=''
-cmd="curl -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
 printf "Post: $post\nComentario: $comentario\n"
 test_case "Comentário nulo" "$cmd" "$cmd_filter"
 printf "\n\nOlhando banco...\n\n"
@@ -160,7 +160,7 @@ mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
 
 post=''
 comentario=''
-cmd="curl -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
 printf "Post: $post\nComentario: $comentario\n"
 test_case "Post e comentário nulos" "$cmd" "$cmd_filter"
 printf "\n\nOlhando banco...\n\n"
