@@ -31,6 +31,7 @@
         </ul>
     </nav><br>
 
+    <?php include '../php/show_message_box.php' ?>
     <div id="crud-container">
     <form class='crud-form blurred-card' action="admin.php?op=add" method="POST" enctype="multipart/form-data">
     	<h1>Criar post</h1>
@@ -54,7 +55,6 @@
 	<input type="submit" value="Deletar">
     </form>
     </div>
-    <?php include '../php/show_message_box.php' ?>
     <footer>
 	<p id="titulo-footer">Contato</p>
 	<div id="contatos">
