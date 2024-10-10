@@ -6,29 +6,35 @@ h1 { color: white; }
 
 .container {
     display: flex;
+    width: 95vw;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-self: center;
     text-align: center;
     margin-bottom: 5rem;
     color: black;
 }
 
+#resultado-erro { font-size: 12pt; }
+
 #info-grid {
+	max-width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	column-gap: 0.5rem;
-	margin-bottom: 1rem;
+	margin-bottom: 1.5rem;
 	background-color: #fff;
+}
+#info-grid p { word-break: break-all; }
+@media only screen and (max-width : 700px) {
+	#info-grid p { font-size: small; }
+	#resultado-erro { font-size: 8pt; }
 }
 
 main {
 	padding: 1rem;
 	background-color: #fff;
-}
-
-#resultado-erro {
-	font-size: small;
 }
 
 button {

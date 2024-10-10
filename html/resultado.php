@@ -39,7 +39,7 @@
 			<p>Orçamento:</p>
 			<p>Autonomia desejada da bateria:</p>
 			<p>Características da localização:</p>
-			<?php if ($sucess) include '../php/show_calc_info.php'?>
+			<?php if ($success) include '../php/show_calc_info.php'?>
 		</div>
 		<main class='blurred-card'>
 		<?php if ($success) include '../php/resultado.php' ?>

@@ -39,7 +39,7 @@
                 <label for="autonomia"><h3>Autonomia da Bateria (Dias):</h3></label>
                 <input type="number" min="1" step="1" name="autonomia" value="positivo" id="positivo" placeholder="Autonomia da Bateria">
 		<br><br>
-                <input type="radio" name="autonomia" value="negativo" id="negativo">
+                <input type="checkbox" name="autonomia" value="negativo" id="negativo">
                 <label for="negativo">Não pretendo utilizar bateria</label>
 		<br>
 		<label for="orcamento"><h3>Orçamento (R$):</h3></label>
