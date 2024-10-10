@@ -9,15 +9,18 @@ $success = false;
 if (!$cookie_support)
 	return "Habilite os cookies";
 
-if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
-	return "Erro ao abrir o banco.";
-
 if (!isset($_POST['nome']) || !isset($_POST['email']) || !isset($_POST['senha'])
 	|| $_POST['nome'] === '' || $_POST['email'] === '' || $_POST['senha'] === '')
 	return "Preencha todos os campos";
 
 if (strlen($_POST['nome']) > MAX_NAME_LENGTH || strlen($_POST['email']) > MAX_EMAIL_LENGTH)
 	return "Dados muito longos";
+
+if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+	return "Email invalido";
+
+if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
+	return "Erro no banco de dados";
 
 if (!$res = $conexao->execute_query("SELECT * FROM Usuarios WHERE email = ?", [$_POST['email']]))
 	return $conexao->error;

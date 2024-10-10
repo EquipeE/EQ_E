@@ -48,9 +48,6 @@ function update_placeholders() {
 }
 
 function add_post($titulo, $img, $conteudo) {
-	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
-		return "Erro ao abrir o banco";
-
 	if (strlen($titulo) > MAX_TITLE_LENGTH || strlen($img) > MAX_IMAGE_PATH_LENGTH)
 		return "Dados muito longos";
 	if (!file_exists(__DIR__ . "/../../img/posts/{$img}"))
@@ -63,6 +60,18 @@ function add_post($titulo, $img, $conteudo) {
 
 	$cont = str_replace("\n", "<br>", $cont);
 
+	if (strlen($cont) > MAX_POST_LENGTH)
+		return "Dados muito longos";
+
+	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
+		return "Erro ao abrir o banco";
+
+	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE titulo = ?", [$titulo]))
+		die($conexao->error);
+
+	if ($res->num_rows > 0)
+		return "Titulo repetido";
+
 	if (!$res = $conexao->execute_query("INSERT INTO Posts VALUES (?, ?, ?, ?)", [NULL, $titulo, $img, $cont]))
 		die($conexao->error);
 
@@ -74,9 +83,6 @@ function add_post($titulo, $img, $conteudo) {
 }
 
 function update_post($id, $titulo, $img, $conteudo) {
-	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
-		return "Erro ao abrir o banco";
-
 	if (strlen($titulo) > MAX_TITLE_LENGTH || strlen($img) > MAX_IMAGE_PATH_LENGTH)
 		return "Dados muito longos";
 	if (!file_exists(__DIR__ . "/../../img/posts/{$img}"))
@@ -84,15 +90,28 @@ function update_post($id, $titulo, $img, $conteudo) {
 	if (!file_exists($conteudo))
 		return "O arquivo {$conteudo} não existe";
 
-	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$id]))
-		die($conexao->error);
-	if ($res->num_rows === 0)
-		return "Não há post com esse id";
-
 	if (!$cont = file_get_contents($conteudo))
 		return "Erro lendo o arquivo {$conteudo}";
 
 	$cont = str_replace("\n", "<br>", $cont);
+
+	if (strlen($cont) > MAX_POST_LENGTH)
+		return "Dados muito longos";
+
+	if (!$conexao = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_NAME))
+		return "Erro ao abrir o banco";
+
+	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE id = ?", [$id]))
+		die($conexao->error);
+
+	if ($res->num_rows === 0)
+		return "Não há post com esse id";
+
+	if (!$res = $conexao->execute_query("SELECT * FROM Posts WHERE titulo = ?", [$titulo]))
+		die($conexao->error);
+
+	if ($res->num_rows > 0 && $res->fetch_assoc['id'] != $id)
+		return "Titulo repetido";
 
 	if (!$res = $conexao->execute_query("UPDATE Posts SET titulo = ?, imagem = ?, conteudo = ? WHERE id = ?", [$titulo, $img, $cont, $id]))
 		die($conexao->error);

@@ -2,390 +2,438 @@
  
 AZUL='\033[34;1m'
 AMARELO='\033[33;1m'
+ROXO='\033[35;1m'
 RESET='\033[0m'
+ADMIN_PASS='Senha@123'
+
+test_case() { # test_case(char *name, char *info_str, char *cmd, char *cmd_filter, char *sql_cmd)
+	printf "\n$AZUL%s:$RESET\n" "$1"
+	printf "\n$ROXO%b$RESET\n" "$2"
+	printf "$AMARELO%s $RESET" `eval "$3" | eval "$4"`
+	[ -n "$5" ] && printf "\n\nOlhando banco...\n\n"
+	mariadb "mredes" -e "$5"
+	printf "\n$AZUL%s$RESET\n" "----------"
+}
+
+cmd_filter="sed -n \"/<div id='resultado.*'>/,/<\/div>/p\""
 
 printf "$AZUL------------------- Suite de testes --------------------\n$RESET"
 printf "\n$AZUL---------- Cadastro ---------$RESET\n"
 
-printf "\n$AZUL Nome muito longo:$RESET\n"
+sql_cmd='SELECT * FROM Usuarios ORDER BY id DESC LIMIT 3'
+
+
 nome=`openssl rand -hex 150`
 email="`openssl rand -hex 25`@gmail.com"
-printf "Nome: $nome\nEmail: $email\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "nome=$nome&email=$email&senha=Senha@123" localhost/EQ_E/html/cadastro.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Usuarios ORDER BY id DESC LIMIT 3"
+cmd="curl -b first_cookie.txt -X POST -d \"nome=$nome&email=$email&senha=$ADMIN_PASS\" localhost/EQ_E/html/cadastro.php"
+info_str="Nome: $nome\nEmail: $email\nSenha: $ADMIN_PASS\n"
+test_case "Nome muito longo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Email válido muito longo:$RESET\n"
 nome=`openssl rand -hex 10`
 email="`openssl rand -hex 150`@gmail.com"
-printf "Nome: $nome\nEmail: $email\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "nome=$nome&email=$email&senha=Senha@123" localhost/EQ_E/html/cadastro.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Usuarios ORDER BY id DESC LIMIT 3"
+cmd="curl -b first_cookie.txt -X POST -d \"nome=$nome&email=$email&senha=$ADMIN_PASS\" localhost/EQ_E/html/cadastro.php"
+info_str="Nome: $nome\nEmail: $email\nSenha: $ADMIN_PASS\n"
+test_case "Email válido muito longo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Email inválido muito longo:$RESET\n"
 nome=`openssl rand -hex 10`
 email=`openssl rand -hex 150`
-printf "Nome: $nome\nEmail: $email\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "nome=$nome&email=$email&senha=Senha@123" localhost/EQ_E/html/cadastro.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Usuarios ORDER BY id DESC LIMIT 3"
+cmd="curl -b first_cookie.txt -X POST -d \"nome=$nome&email=$email&senha=$ADMIN_PASS\" localhost/EQ_E/html/cadastro.php"
+info_str="Nome: $nome\nEmail: $email\nSenha: $ADMIN_PASS\n"
+test_case "Email inválido muito longo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Inserção nula:$RESET\n"
 nome=''
 email=''
-printf "Nome: $nome\nEmail: $email\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "nome=$nome&email=$email&senha=Senha@123" localhost/EQ_E/html/cadastro.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Usuarios ORDER BY id DESC LIMIT 3"
+cmd="curl -b first_cookie.txt -X POST -d \"nome=$nome&email=$email&senha=$ADMIN_PASS\" localhost/EQ_E/html/cadastro.php"
+info_str="Nome: $nome\nEmail: $email\nSenha: $ADMIN_PASS\n"
+test_case "Inserção nula" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Email inválido:$RESET\n"
 nome=`openssl rand -hex 10`
 email=`openssl rand -hex 25`
-printf "Nome: $nome\nEmail: $email\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "nome=$nome&email=$email&senha=Senha@123" localhost/EQ_E/html/cadastro.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Usuarios ORDER BY id DESC LIMIT 3"
+cmd="curl -b first_cookie.txt -X POST -d \"nome=$nome&email=$email&senha=$ADMIN_PASS\" localhost/EQ_E/html/cadastro.php"
+info_str="Nome: $nome\nEmail: $email\nSenha: $ADMIN_PASS\n"
+test_case "Email inválido" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL SQL Injection:$RESET\n"
 nome="'', '', ''); DROP DATABASE mredes --"
 email="`openssl rand -hex 25`@gmail.com"
-printf "curl %s\n" "$curl_opts"
-printf "Nome: $nome\nEmail: $email\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "nome=$nome&email=$email&senha=Senha@123" localhost/EQ_E/html/cadastro.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Usuarios ORDER BY id DESC LIMIT 3"
+cmd="curl -b first_cookie.txt -X POST -d \"nome=$nome&email=$email&senha=$ADMIN_PASS\" localhost/EQ_E/html/cadastro.php"
+info_str="Nome: $nome\nEmail: $email\nSenha: $ADMIN_PASS\n"
+test_case "SQL Injection" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Cadastro válido:$RESET\n"
 nome=`openssl rand -hex 10`
 email_valido="`openssl rand -hex 25`@gmail.com"
-printf "Nome: $nome\nEmail: $email_valido\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "nome=$nome&email=$email_valido&senha=Senha@123" localhost/EQ_E/html/cadastro.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Usuarios ORDER BY id DESC LIMIT 3"
+cmd="curl -b first_cookie.txt -X POST -d \"nome=$nome&email=$email_valido&senha=$ADMIN_PASS\" localhost/EQ_E/html/cadastro.php"
+info_str="Nome: $nome\nEmail: $email_valido\nSenha: $ADMIN_PASS\n"
+test_case "Cadastro válido" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
 
 printf "\n$AZUL--------- Login ---------$RESET\n"
 
 
-printf "\n$AZUL Email que não existe:$RESET\n"
 email=`openssl rand -hex 40`
-printf "Email: $email\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "email=$email&senha=Senha@123" localhost/EQ_E/html/login.php`
-printf "\n"
+cmd="curl -b first_cookie.txt -X POST -d \"email=$email&senha=$ADMIN_PASS\" localhost/EQ_E/html/login.php"
+info_str="Email: $email\nSenha: $ADMIN_PASS\n"
+test_case "Email inexistente" "$info_str" "$cmd" "$cmd_filter"
 
-printf "\n$AZUL SQL Injection:$RESET\n"
 email="'', '', ''); DROP DATABASE mredes --"
-printf "Email: $email\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "email=$email&senha=Senha@123" localhost/EQ_E/html/login.php`
-printf "\n"
+cmd="curl -b first_cookie.txt -X POST -d \"email=$email&senha=$ADMIN_PASS\" localhost/EQ_E/html/login.php"
+info_str="Email: $email\nSenha: $ADMIN_PASS\n"
+test_case "SQL Injection" "$info_str" "$cmd" "$cmd_filter"
 
-printf "\n$AZUL Senha errada:$RESET\n"
-printf "Email: $email_valido\nSenha: Senha@1231\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -X POST -d "email=$email_valido&senha=Senha@1231" localhost/EQ_E/html/login.php`
-printf "\n"
+cmd="curl -b first_cookie.txt -X POST -d \"email=$email_valido&senha=$ADMIN_PASS.1\" localhost/EQ_E/html/login.php"
+info_str="Email: $email_valido\nSenha: $ADMIN_PASS.1\n"
+test_case "Senha errada" "$info_str" "$cmd" "$cmd_filter"
 
-printf "\n$AZUL Senha e email corretos:$RESET\n"
-printf "Email: $email_valido\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -c tmp_cookie.txt -X POST -d "email=$email_valido&senha=Senha@123" localhost/EQ_E/html/login.php`
-printf "\n"
+cmd="curl -b first_cookie.txt -c tmp_cookie.txt -X POST -d \"email=$email_valido&senha=$ADMIN_PASS\" localhost/EQ_E/html/login.php"
+info_str="Email: $email_valido\nSenha: $ADMIN_PASS\n"
+test_case "Login correto" "$info_str" "$cmd" "$cmd_filter"
 
-printf "\n$AZUL Login como admin:$RESET\n"
-printf "Email: a@a.com\nSenha: Senha@123\n"
-printf "$AMARELO%s $RESET" `curl -b first_cookie.txt -c admin_cookie.txt -X POST -d "email=a@a.com&senha=Senha@123" localhost/EQ_E/html/login.php`
-printf "\n"
+cmd="curl -b first_cookie.txt -c admin_cookie.txt -X POST -d \"email=a@a.com&senha=$ADMIN_PASS\" localhost/EQ_E/html/login.php"
+info_str="Email: a@a.com\nSenha: $ADMIN_PASS\n"
+test_case "Login como admin" "$info_str" "$cmd" "$cmd_filter"
 
 
 printf "\n$AZUL--------- Comentário ---------$RESET\n"
 
+sql_cmd='SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3'
 
-printf "\n$AZUL Comentando em post que não existe:$RESET\n"
 post='AAAA'
-comentario=`openssl rand -hex 1000`
-printf "Post: $post\nComentario: $comentario\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -d "post_id=$post&comment=$comentario" localhost/EQ_E/php/comentarios/add_comment.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
+comentario=`openssl rand -hex 250`
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+info_str="Post: $post\nComentario: $comentario\n"
+test_case "Comentário em post inexistente" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Comentário muito longo:$RESET\n"
 post=2
 comentario=`openssl rand -hex 35000`
-printf "Post: $post\nComentario: $comentario\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -d "post_id=$post&comment=$comentario" localhost/EQ_E/php/comentarios/add_comment.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+info_str="Post: $post\nComentario: $comentario\n"
+test_case "Comentário muito longo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Comentario sem estar logado:$RESET\n"
 post=2
-comentario=`openssl rand -hex 1000`
-printf "Post: $post\nComentario: $comentario\n"
-printf "$AMARELO%s $RESET" `curl -X POST -d "post_id=$post&comment=$comentario" localhost/EQ_E/php/comentarios/add_comment.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
+comentario=`openssl rand -hex 250`
+cmd="curl -L -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+info_str="Post: $post\nComentario: $comentario\n"
+test_case "Comentário sem estar logado" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL SQL Injection:$RESET\n"
 post="'', '', ''); DROP DATABASE mredes --"
-comentario=`openssl rand -hex 1000`
-printf "Post: $post\nComentario: $comentario\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -d "post_id=$post&comment=$comentario" localhost/EQ_E/php/comentarios/add_comment.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
+comentario=`openssl rand -hex 250`
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+info_str="Post: $post\nComentario: $comentario\n"
+test_case "SQL Injection" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL XSS:$RESET\n"
 post=2
 comentario='<script>alert(1)</script>'
-printf "Post: $post\nComentario: $comentario\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -d "post_id=$post&comment=$comentario" localhost/EQ_E/php/comentarios/add_comment.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+info_str="Post: $post\nComentario: $comentario\n"
+test_case "XSS" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Post nulo:$RESET\n"
 post=''
-comentario=`openssl rand -hex 1000`
-printf "Post: $post\nComentario: $comentario\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -d "post_id=$post&comment=$comentario" localhost/EQ_E/php/comentarios/add_comment.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
+comentario=`openssl rand -hex 250`
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+info_str="Post: $post\nComentario: $comentario\n"
+test_case "Post nulo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Comentário nulo:$RESET\n"
 post=2
 comentario=''
-printf "Post: $post\nComentario: $comentario\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -d "post_id=$post&comment=$comentario" localhost/EQ_E/php/comentarios/add_comment.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+info_str="Post: $post\nComentario: $comentario\n"
+test_case "Comentário nulo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Post e comentário nulos:$RESET\n"
 post=''
 comentario=''
-printf "Post: $post\nComentario: $comentario\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -d "post_id=$post&comment=$comentario" localhost/EQ_E/php/comentarios/add_comment.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
+info_str="Post: $post\nComentario: $comentario\n"
+test_case "Post e comentário nulos" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
 
 printf "\n$AZUL--------- Tela de admin ---------$RESET\n"
 
+sql_cmd='SELECT * FROM Posts ORDER BY id DESC LIMIT 2'
 
-printf "\n$AZUL Adicionando post sem estar logado:$RESET\n"
 titulo='teste'
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf \"%s%s\" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post sem estar logado" "$info_str" "$cmd" "cat" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post sem estar logado:$RESET\n"
 id=5
 titulo='teste'
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \"id=$id\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post sem estar logado" "$info_str" "$cmd" "cat" "$sql_cmd"
 
-printf "\n$AZUL Deletando post sem estar logado:$RESET\n"
 id=5
-printf "Id=$id\n"
-printf "$AMARELO%s $RESET" `curl -X POST -d "id=$id" localhost/EQ_E/php/posts/delete_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+cmd="curl -L -X POST -d \"id=$id\" localhost/EQ_E/html/admin.php?op=delete"
+info_str="Id=$id\n"
+test_case "Deletando post sem estar logado" "$info_str" "$cmd" "cat" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post logado, mas sem ser admin:$RESET\n"
 titulo='teste'
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -b tmp_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post logado, mas sem ser admin" "$info_str" "$cmd" "cat" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post logado, mas sem ser admin:$RESET\n"
 id=5
 titulo='teste'
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -b tmp_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \"id=$id\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post logado, mas sem ser admin" "$info_str" "$cmd" "cat" "$sql_cmd"
 
-printf "\n$AZUL Deletando post logado, mas sem ser admin:$RESET\n"
 id=5
-printf "Id=$id\n"
-printf "$AMARELO%s $RESET" `curl -b tmp_cookie.txt -X POST -d "id=$id" localhost/EQ_E/php/posts/delete_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+cmd="curl -L -b tmp_cookie.txt -X POST -d \"id=$id\" localhost/EQ_E/html/admin.php?op=delete"
+info_str="Id=$id\n"
+test_case "Deletando post logado, mas sem ser admin" "$info_str" "$cmd" "cat" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post com titulo repetido:$RESET\n"
 titulo='Post 4'
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -b admin_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post com título repetido" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post com titulo muito longo:$RESET\n"
 titulo=`openssl rand -hex 75`
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -b admin_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post com titulo muito longo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post com titulo nulo:$RESET\n"
 titulo=''
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -b admin_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post com titulo nulo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post com conteudo muito longo:$RESET\n"
 titulo='aaaaa'
 conteudo=`openssl rand -hex 35000`
-imagem='@./img/art2.png'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -b admin_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post com conteudo muito longo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post com conteudo vazio:$RESET\n"
 titulo='aaaaab'
 conteudo=''
-imagem='@./img/art2.png'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -L -b admin_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post com conteúdo vazio" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post com shell script ao invés de imagem:$RESET\n"
 titulo='bbbbb'
 conteudo='a'
 imagem='@./test.sh'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+cmd="curl -L -b admin_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post com shell script ao invés de imagem" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post com arquivo php ao invés de imagem:$RESET\n"
 titulo='ccccc'
 conteudo='a'
-imagem='@./html/login.php'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../html/login.php'
+cmd="curl -L -b admin_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post com arquivo php ao invés de imagem" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Adicionando post com binário ao invés de imagem:$RESET\n"
 titulo='ddddd'
 conteudo='a'
 imagem='@/bin/sh'
-printf "Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/add_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+cmd="curl -L -b admin_cookie.txt -X POST -F \"titulo=$titulo\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=add"
+info_str="Titulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Adicionando post com binário ao invés de imagem" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com id inexistente:$RESET\n"
 id='AAAAAA'
 titulo='Post 4'
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com id inexistente" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com titulo repetido:$RESET\n"
 id=5
 titulo='Post 4'
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com titulo repetido" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com titulo muito longo:$RESET\n"
 id=5
 titulo=`openssl rand -hex 75`
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com título muito longo:" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com titulo nulo:$RESET\n"
 titulo=''
 conteudo='aa'
-imagem='@./img/art2.png'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com título nulo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com conteudo muito longo:$RESET\n"
 id=2
 titulo='aaaaa'
 conteudo=`openssl rand -hex 35000`
-imagem='@./img/art2.png'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com conteúdo muito longo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com conteudo vazio:$RESET\n"
 id=1
 titulo='aaaaab'
 conteudo=''
-imagem='@./img/art2.png'
-printf "Id:$id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../img/art2.png'
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id:$id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com conteúdo vazio" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com shell script ao invés de imagem:$RESET\n"
 id=3
 titulo='bbbbb'
 conteudo='a'
 imagem='@./test.sh'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com shell script ao invés de imagem" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com arquivo php ao invés de imagem:$RESET\n"
 id=4
 titulo='ccccc'
 conteudo='a'
-imagem='@./html/login.php'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+imagem='@../html/login.php'
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com arquivo php ao invés de imagem" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Atualizando post com binário ao invés de imagem:$RESET\n"
 id=5
 titulo='ddddd'
 conteudo='a'
 imagem='@/bin/sh'
-printf "Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -F "id=$id" -F "titulo=$titulo" -F "conteudo=$conteudo" -F \`printf "%s%s" "imagem=" $imagem\` localhost/EQ_E/php/posts/update_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+cmd="curl -b admin_cookie.txt -X POST -F \"id=$id\" -F \"titulo=$titulo\" -F \"id=$id\" -F \"conteudo=$conteudo\" -F \`printf "%s%s" \"imagem=\" $imagem\` localhost/EQ_E/html/admin.php?op=update"
+info_str="Id: $id\nTitulo: $titulo\nConteudo: $conteudo\nImagem:$imagem\n"
+test_case "Atualizando post com binário ao invés de imagem" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
-printf "\n$AZUL Deletando post com id inexistente:$RESET\n"
 id='AAAAAAAAAAAAA'
-printf "Id: $id\n"
-printf "$AMARELO%s $RESET" `curl -b admin_cookie.txt -X POST -d "id=$id" localhost/EQ_E/php/posts/delete_post.php`
-printf "\n\nOlhando banco...\n\n"
-mariadb "mredes" -e "SELECT * FROM Posts ORDER BY id DESC LIMIT 2"
+cmd="curl -b admin_cookie.txt -X POST -d \"id=$id\" localhost/EQ_E/html/admin.php?op=delete"
+info_str="Id: $id\n"
+test_case "Deletando post com id inexistente" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
+
+printf "\n$AZUL--------- Busca ---------$RESET\n"
+
+cmd="curl localhost/EQ_E/html/search.php"
+test_case "Busca vazia" "" "$cmd" "cat"
+
+busca='AAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+cmd="curl localhost/EQ_E/html/search.php?busca=$busca"
+info_str="Busca: $busca\n"
+test_case "Buscando termo que não existe" "$info_str" "$cmd" "cat"
+
+busca='<script>alert(1)</script>'
+cmd="curl --get --data-urlencode 'busca=$busca' localhost/EQ_E/html/search.php"
+info_str="Busca: $busca\n"
+test_case "XSS" "$info_str" "$cmd" "cat"
+
+busca='); DROP DATABASE mredes --'
+cmd="curl --get --data-urlencode 'busca=$busca' localhost/EQ_E/html/search.php"
+info_str="Busca: $busca\n"
+test_case "SQL Injection" "$info_str" "$cmd" "cat"
+
+busca='USP'
+cmd="curl localhost/EQ_E/html/search.php?busca=$busca"
+info_str="Busca: $busca\n"
+test_case "Busca correta" "$info_str" "$cmd" "cat"
+
+printf "\n$AZUL--------- Calculadora ---------$RESET\n"
+
+consumo=20
+autonomia=3
+orcamento=100
+cmd="curl -X POST -d 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo sem local" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=
+autonomia=3
+orcamento=100
+local='vento'
+cmd="curl -X POST -d 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo sem consumo" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=20
+autonomia=
+orcamento=100
+local='vento'
+cmd="curl -X POST -d 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo sem autonomia" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=20
+autonomia=3
+orcamento=
+local='vento'
+cmd="curl -X POST -d 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo sem orçamento" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=-69.6969
+autonomia=3
+orcamento=100
+local="vento"
+cmd="curl -X POST -d 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo com consumo negativo e fracionário" "$info_str" "$cmd" "$cmd_filter"
+
+consumo='As armas e os barões assinalados'
+autonomia=3
+orcamento=100
+local="vento"
+cmd="curl -X POST --data-urlencode 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo com consumo não-numérico" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=20
+autonomia=-24.91
+orcamento=100
+local="vento"
+cmd="curl -X POST -d 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo com autonomia negativa e fracionária" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=20
+autonomia='Que da ocidental praia lusitana'
+orcamento=100
+local="vento"
+cmd="curl -X POST --data-urlencode 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo com autonomia não-numérica" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=20
+autonomia=3
+orcamento=-69.69
+local="vento"
+cmd="curl -X POST -d 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo com orçamento negativo e fracionário" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=20
+autonomia=3
+orcamento='Por mares nunca dantes navegados'
+local="vento"
+cmd="curl -X POST --data-urlencode 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo com orçamento não-numérico" "$info_str" "$cmd" "$cmd_filter"
+
+consumo=20
+autonomia=3
+orcamento=100000
+local=9
+cmd="curl -X POST -d 'consumo=$consumo&autonomia=$autonomia&orcamento=$orcamento&local=$local' localhost/EQ_E/html/resultado.php"
+info_str="Consumo: $consumo\nAutonomia: $autonomia\nOrçamento: $orcamento\nLocal: $local\n"
+test_case "Cálculo com local setado, mas não aceito" "$info_str" "$cmd" "$cmd_filter"
 
 rm admin_cookie.txt
 rm tmp_cookie.txt

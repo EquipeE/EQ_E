@@ -1,10 +1,18 @@
 <?php
 require_once 'calc_consts.php';
 
-if (!isset($_POST['consumo']) || !isset($_POST['autonomia']) || !isset($_POST['orcamento']))
-	die("Dados insuficientes");
+$success = false;
+
+if (!isset($_POST['consumo']) || !isset($_POST['autonomia']) || !isset($_POST['orcamento'])
+    || !filter_var($_POST['consumo'], FILTER_VALIDATE_FLOAT) || !filter_var($_POST['autonomia'], FILTER_VALIDATE_FLOAT)
+    || !filter_var($_POST['orcamento'], FILTER_VALIDATE_FLOAT))
+	return "Dados insuficientes";
+if ($_POST['consumo'] < 0 || $_POST['orcamento'] < 0 || $_POST['autonomia'] < 0)
+	return "Dados inválidos";
 if (!isset($_POST['local']))
-	die("Não há opções no seu local");
+	return "Não há opções no seu local";
+if (!in_array($_POST['local'], ['vento', 'sol', 'rio']))
+	return "Dados inválidos";
 
 $consumo = $_POST['consumo'];
 $autonomia = $_POST['autonomia'];
@@ -105,4 +113,7 @@ foreach ($local as $l) {
 	$sist->calcular($consumo, $orcamento);
 	$sistemas[] = $sist;
 }
+
+$success = true;
+return '';
 ?>

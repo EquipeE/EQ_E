@@ -1,4 +1,4 @@
-<?php include '../php/calc.php' ?>
+<?php $msg = include '../php/calc.php' ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -30,6 +30,8 @@
         </ul>
     </nav><br>
 
+	<?php if (!$success) include '../php/show_message_box.php' ?>
+
        <div class="container">
 		<h1>Resultados</h1>
 		<div id='info-grid' class='blurred-card'>
@@ -37,10 +39,10 @@
 			<p>Orçamento:</p>
 			<p>Autonomia desejada da bateria:</p>
 			<p>Características da localização:</p>
-			<?php include '../php/show_calc_info.php'?>
+			<?php if ($sucess) include '../php/show_calc_info.php'?>
 		</div>
 		<main class='blurred-card'>
-		<?php include '../php/resultado.php' ?>
+		<?php if ($success) include '../php/resultado.php' ?>
                 <a href="calc.php"><button>Fazer Nova Simulação</button></a>
 		</main>
         </div>

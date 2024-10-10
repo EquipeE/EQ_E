@@ -9,6 +9,9 @@ $success = false;
 if (!isset($_GET['id']) || !isset($_POST['comment']) || $_POST['comment'] === '' || $_GET['id'] === '')
 	return "Dados insuficientes";
 
+if (strlen($_POST['comment']) > MAX_COMMENT_LENGTH)
+	return "Comentário muito longo";
+
 session_start(["use_strict_mode" => 1, "cookie_httponly" => 1]);
 
 if (!isset($_SESSION['id']))
