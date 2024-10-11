@@ -4,15 +4,17 @@ require_once 'calc_consts.php';
 $success = false;
 
 if (!isset($_POST['consumo']) || !isset($_POST['autonomia']) || !isset($_POST['orcamento'])
-    || !filter_var($_POST['consumo'], FILTER_VALIDATE_FLOAT) || !filter_var($_POST['autonomia'], FILTER_VALIDATE_FLOAT)
-    || !filter_var($_POST['orcamento'], FILTER_VALIDATE_FLOAT))
+	|| !filter_var($_POST['consumo'], FILTER_VALIDATE_FLOAT) || !filter_var($_POST['orcamento'], FILTER_VALIDATE_FLOAT)
+	|| ($_POST['autonomia'] != 'negativo' && !filter_var($_POST['autonomia'], FILTER_VALIDATE_FLOAT)))
 	return "Dados insuficientes";
-if ($_POST['consumo'] < 0 || $_POST['orcamento'] < 0 || $_POST['autonomia'] < 0)
+if ($_POST['consumo'] < 0 || $_POST['orcamento'] < 0 || ($_POST['autonomia'] != 'negativo' && $_POST['autonomia'] < 0))
 	return "Dados inválidos";
 if (!isset($_POST['local']))
 	return "Não há opções no seu local";
-if (!in_array($_POST['local'], ['vento', 'sol', 'rio']))
-	return "Dados inválidos";
+
+foreach ($_POST['local'] as $l)
+	if (!in_array($l, ['vento', 'sol', 'rio']))
+		return "Dados inválidos";
 
 $consumo = $_POST['consumo'];
 $autonomia = $_POST['autonomia'];
@@ -20,15 +22,15 @@ $local = $_POST['local'];
 $orcamento = $_POST['orcamento'];
 
 class Bateria {
-	public int $autonomia;
+	public float $autonomia;
 	public int $capacidadeAh120;
 	public int $capacidadeAh120_reduzido;
 	public int $capacidadeAh220;
 	public int $capacidadeAh220_reduzido;
 	public int $capacidade_kwh;
 	public int $capacidade_kwh_reduzido;
-	public int $preco;
-	public int $preco_reduzido;
+	public float $preco;
+	public float $preco_reduzido;
 
 	function __construct($consumo, $autonomia) {
 		$this->capacidade_kwh = ($autonomia === 'negativo') ? 0 : $consumo * $autonomia;
@@ -65,9 +67,9 @@ class Bateria {
 }
 
 class Sistema {
-	public int $custo_sistema;
-	public int $custo_total;
-	public int $custo_total_reduzido;
+	public float $custo_sistema;
+	public float $custo_total;
+	public float $custo_total_reduzido;
 	public string $descricao;
 
 	function __construct($nome, $consumo, $autonomia, $preco_unitario, $kwh_unitario, $bateria_kwh, $preco_bateria, $descricao_placeholder) {
@@ -113,6 +115,13 @@ foreach ($local as $l) {
 	$sist->calcular($consumo, $orcamento);
 	$sistemas[] = $sist;
 }
+
+foreach ($local as &$l)
+	$l = match ($l) {
+		'rio' => 'Proximo a um rio',
+		'sol' => 'Ensolarado',
+		'vento' => 'Muito vento'
+	};
 
 $success = true;
 return '';
