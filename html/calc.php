@@ -1,3 +1,4 @@
+<?php session_start(); if (!isset($_SESSION['id'])) header('Location: calcWall.php'); ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -17,7 +18,7 @@
         <ul class="menu">
             <li><a href="../index.php"><img class='icon' src='../img/ico/home.svg'>Home</a></li>
             <li><a href="../html/blog.php"><img class='icon' src='../img/ico/book.svg'>Blog</a></li>
-            <li><a id="current-page" href="../html/calc.php"><img class='icon' src='../img/ico/calc.svg'>Calculadora</a></li>
+            <li><a id="current-page" href="calc.php"><img class='icon' src='../img/ico/calc.svg'>Calculadora</a></li>
             <li class="drop">
                 <a href="#"><img class='icon' src='../img/ico/user.svg'>Conta</a>
 		<ul class='conteudo blurred-card'>

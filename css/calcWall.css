@@ -1,0 +1,17 @@
+main {
+	display: block;
+	text-align: center;
+	margin: 5rem auto 5rem auto;
+	padding: 10px;
+	max-width: 90vw;
+}
+
+button {
+	border: solid black 1px;
+	border-radius: 20px;
+	background-color: rgb(32, 103, 255);
+	color: white;
+	padding: 10px;
+	margin-top: 20px;
+	cursor: pointer;
+}

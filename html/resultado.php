@@ -1,3 +1,4 @@
+<?php session_start(); if (!isset($_SESSION['id'])) header('Location: calcWall.php'); ?>
 <?php $msg = include '../php/calc.php' ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
