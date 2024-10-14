@@ -46,6 +46,7 @@
 		<main class='blurred-card'>
 		<?php if ($success) include '../php/resultado.php' ?>
                 <a href="calc.php"><button>Fazer Nova Simulação</button></a>
+                <a onclick='window.print()'><button>Gerar PDF</button></a>
 		</main>
         </div>
     <footer>
