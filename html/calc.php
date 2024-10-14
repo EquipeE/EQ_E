@@ -30,35 +30,50 @@
     </nav><br>
 
     <h1>Calculadora </h1>
-    <div class="container">
-        <form class="blurred-card" action="resultado.php" method="POST">
-            <div class="dados">
-                <label for="consumo"><h3>Consumo diário de energia (kWh):</h3></label>
-                <input type="number" name="consumo" id="consumo" placeholder="Energia consumida" required>
+	<form id="calc" class="blurred-card" action="resultado.php" method="POST">
+		<h3 id='aparelhos-titulo'>Quais aparelhos há na tua casa?</h3>
+		<input type='checkbox' id='valores-padrao'>
+		<label for='valores-padrao' id='valores-padrao-lbl'>Não sei a potência dos meus aparelhos</label>
+		<div id='aparelhos-wrapper'>
+			<div id='aparelhos-tbl'>
+				<div class='aparelhos-row'>
+					<p>Aparelho</p>
+					<p>Potência em Watts</p>
+				</div>
+			</div>
+			<aside>
+				<img id='addBtn' src='../img/ico/plus.svg'>
+				<img id='delBtn' src='../img/ico/minus.svg'>
+				<img id='trashBtn' src='../img/ico/trash.svg'>
+			</aside>
+		</div>
+		<label for="consumo" id='consumo-label'><h3>Consumo diário de energia (kWh):</h3></label>
+		<input type="number" name="consumo" id="consumo" placeholder="Energia consumida" required><br><br>
+		
+		<input type="checkbox" id="ativar-aparelhos">
+		<label for="ativar-aparelhos">Não sei meu consumo diário em kWh </label>
 
-                <label for="autonomia"><h3>Autonomia da Bateria (Dias):</h3></label>
-                <input type="number" min="1" step="1" name="autonomia" value="positivo" id="positivo" placeholder="Autonomia da Bateria">
+		<label for="autonomia" id='autonomia'><h3>Autonomia da Bateria (Dias):</h3></label>
+		<input type="number" min="0.1" step="0.1" name="autonomia" value="positivo" id="positivo" placeholder="Autonomia da Bateria" required>
 		<br><br>
-                <input type="checkbox" name="autonomia" value="negativo" id="negativo">
-                <label for="negativo">Não pretendo utilizar bateria</label>
+		<input type="checkbox" name="autonomia" value="negativo" id="negativo">
+		<label for="negativo">Não pretendo utilizar bateria</label>
 		<br>
 		<label for="orcamento"><h3>Orçamento (R$):</h3></label>
-                <input type="number" min="1" step="0.1" name="orcamento" id="orcamento" placeholder="Orçamento" required >
+		<input type="number" min="1" name="orcamento" id="orcamento" placeholder="Orçamento" required>
 		<br>
 
-                <h3>Como é o lugar onde você vive:</h3>
-                <input type="checkbox" name="local[]" value="vento" id="vento">
-                <label for="vento">Muito vento</label>
-                <input type="checkbox" name="local[]" value="sol" id="sol">
-                <label for="sol">Ensolarado</label>
-                <input type="checkbox" name="local[]" value="rio" id="rio">
-                <label for="rio">Proximo a um rio</label>
-		<br><br><br>
+		<h3>Como é o lugar onde você vive:</h3>
+		<input type="checkbox" name="local[]" value="vento" id="vento">
+		<label for="vento">Muito vento</label>
+		<input type="checkbox" name="local[]" value="sol" id="sol">
+		<label for="sol">Ensolarado</label>
+		<input type="checkbox" name="local[]" value="rio" id="rio">
+		<label for="rio">Proximo a um rio</label>
+		<br>
 
-                <input type="submit" id="botao" value="Calcular">
-            </div>
-        </form>
-    </div>
+		<input type="submit" value="Calcular">
+	</form>
     <footer>
 	<p id="titulo-footer">Contato</p>
 	<div id="contatos">
@@ -67,5 +82,6 @@
 		<p><img class='icon' src='../img/ico/mail.svg'>equipesenae@gmail.com</p>
 	</div>
     </footer>
+    <script src='../js/calc.js'></script>
 </body>
 </html>

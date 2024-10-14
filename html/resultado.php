@@ -28,19 +28,20 @@
                 </ul>    
             </li>
         </ul>
-    </nav><br>
+    </nav>
 
 	<?php if (!$success) include '../php/show_message_box.php' ?>
 
        <div class="container">
 		<h1>Resultados</h1>
-		<div id='info-grid' class='blurred-card'>
+		<?php if ($success) include '../php/show_devices_info.php' ?>
+		<section id='info-grid' class='blurred-card'>
 			<p>Consumo diário:</p>
 			<p>Orçamento:</p>
 			<p>Autonomia desejada da bateria:</p>
 			<p>Características da localização:</p>
 			<?php if ($success) include '../php/show_calc_info.php'?>
-		</div>
+		</section>
 		<main class='blurred-card'>
 		<?php if ($success) include '../php/resultado.php' ?>
                 <a href="calc.php"><button>Fazer Nova Simulação</button></a>

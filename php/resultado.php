@@ -6,7 +6,7 @@ foreach ($sistemas as $s) {
 		echo "<p id='resultado-erro'>Infelizmente, seu orçamento não é suficiente para atender seus requisitos.</p>";
 	echo "<p class='custo'>Custo total: R$" . number_format($s->custo_total, 2, ',', '.') . "</p>";
 
-	if ($s->bateria->autonomia === 0)
+	if ($s->bateria->autonomia == 0)
 		continue;
 
 	echo "<p>Capacidade da bateria, se sua rede elétrica for de 120V: {$s->bateria->capacidadeAh120}Ah</p>";

@@ -3,20 +3,28 @@ require_once 'calc_consts.php';
 
 $success = false;
 
-if (!isset($_POST['consumo']) || !isset($_POST['autonomia']) || !isset($_POST['orcamento'])
-	|| !filter_var($_POST['consumo'], FILTER_VALIDATE_FLOAT) || !filter_var($_POST['orcamento'], FILTER_VALIDATE_FLOAT)
-	|| ($_POST['autonomia'] != 'negativo' && !filter_var($_POST['autonomia'], FILTER_VALIDATE_FLOAT)))
+if ((!isset($_POST['consumo']) && (!isset($_POST['aparelho']) || !isset($_POST['potencia']))) || !isset($_POST['autonomia']) || !isset($_POST['orcamento'])
+	|| (isset($_POST['consumo']) && $_POST['consumo'] != '' && !filter_var($_POST['consumo'], FILTER_VALIDATE_FLOAT)) || ($_POST['consumo'] === '' && !isset($_POST['aparelho']))
+	|| !filter_var($_POST['orcamento'], FILTER_VALIDATE_FLOAT) || ($_POST['autonomia'] != 'negativo' && !filter_var($_POST['autonomia'], FILTER_VALIDATE_FLOAT)))
 	return "Dados insuficientes";
-if ($_POST['consumo'] < 0 || $_POST['orcamento'] < 0 || ($_POST['autonomia'] != 'negativo' && $_POST['autonomia'] < 0))
+if ($_POST['consumo'] != '' && ($_POST['consumo'] < 0 || $_POST['orcamento'] < 0 || ($_POST['autonomia'] != 'negativo' && $_POST['autonomia'] < 0)))
 	return "Dados inválidos";
 if (!isset($_POST['local']))
 	return "Não há opções no seu local";
+if (isset($_POST['aparelho']) && (count($_POST['aparelho']) != count($_POST['potencia'])))
+	return "Dados insuficientes";
 
 foreach ($_POST['local'] as $l)
 	if (!in_array($l, ['vento', 'sol', 'rio']))
 		return "Dados inválidos";
 
-$consumo = $_POST['consumo'];
+$consumo = 0;
+if (isset($_POST['aparelho']))
+	for ($i = 0;$i < count($_POST['aparelho']);$i++)
+		$consumo += $_POST['potencia'][$i] / 1000 * 24 * 3 / 100; /* 3% em kWh considerando 24h por dia*/
+else 
+	$consumo = $_POST['consumo'];
+
 $autonomia = $_POST['autonomia'];
 $local = $_POST['local'];
 $orcamento = $_POST['orcamento'];

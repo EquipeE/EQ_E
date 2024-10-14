@@ -18,14 +18,16 @@ h1 { color: white; }
 
 #resultado-erro { font-size: 12pt; }
 
-#info-grid {
-	max-width: 100%;
+#aparelhos-grid, #info-grid {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	column-gap: 0.5rem;
+	column-gap: .5rem;
 	margin-bottom: 1.5rem;
+	max-width: 100%;
 	background-color: #fff;
+	padding: 10px;
 }
+#aparelhos-grid { grid-template-columns: 1fr 1fr; }
+#info-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
 #info-grid p { word-break: break-all; }
 @media only screen and (max-width : 700px) {
 	#info-grid p { font-size: small; }
@@ -43,6 +45,13 @@ button {
     background-color: rgb(32, 103, 255);
     color: white;
     width: 40%;
+    min-width: 5rem;
     padding: 10px 5px 10px 5px;
     margin-top: 1rem;
+    cursor: pointer;
+}
+
+@media only print {
+	nav, button, footer { display: none; }
+	.container { margin-bottom: 0; }
 }
