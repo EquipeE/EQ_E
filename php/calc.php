@@ -42,8 +42,10 @@ class Bateria {
 
 	function __construct($consumo, $autonomia) {
 		$this->capacidade_kwh = ($autonomia === 'negativo') ? 0 : $consumo * $autonomia;
+		$this->capacidade_kwh_reduzido = $this->capacidade_kwh;
 		$this->autonomia = ($autonomia === 'negativo') ? 0 : $autonomia;
 		$this->preco = $this->capacidade_kwh * PRECO_UNITARIO_BATERIA;
+		$this->preco_reduzido = $this->preco;
 
 		if ($autonomia === 'negativo') {
 			$this->capacidadeAh120 = 0;
