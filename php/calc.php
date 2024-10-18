@@ -9,7 +9,7 @@ if ((!isset($_POST['consumo']) && (!isset($_POST['aparelho']) || !isset($_POST['
 	return "Dados insuficientes";
 if ($_POST['consumo'] != '' && ($_POST['consumo'] < 0 || $_POST['orcamento'] < 0 || ($_POST['autonomia'] != 'negativo' && $_POST['autonomia'] < 0)))
 	return "Dados inválidos";
-if (!isset($_POST['local']))
+if (!isset($_POST['local']) || !is_array($_POST['local']))
 	return "Não há opções no seu local";
 if (isset($_POST['aparelho']) && (count($_POST['aparelho']) != count($_POST['potencia'])))
 	return "Dados insuficientes";
