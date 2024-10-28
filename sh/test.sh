@@ -99,13 +99,13 @@ sql_cmd='SELECT * FROM Comentarios ORDER BY id DESC LIMIT 3'
 post='AAAA'
 comentario=`openssl rand -hex 250`
 cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
-info_str="Post: $post\nComentario: $comentario\n"
+info_str="Post: $post\n"
 test_case "Comentário em post inexistente" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
 post=2
 comentario=`openssl rand -hex 35000`
 cmd="curl -L -b tmp_cookie.txt -X POST -d \"comment=$comentario\" localhost/EQ_E/html/post.php?id=$post"
-info_str="Post: $post\nComentario: $comentario\n"
+info_str="Post: $post\n"
 test_case "Comentário muito longo" "$info_str" "$cmd" "$cmd_filter" "$sql_cmd"
 
 post=2

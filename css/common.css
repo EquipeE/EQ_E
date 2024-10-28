@@ -1,5 +1,5 @@
 body {
-	background: url('./../img/index-background.png') no-repeat center / cover;
+	background: url('./../img/index-background.png') repeat;
 	min-height: 100vh;
 	color: white;
 	margin: 0;

@@ -2,7 +2,7 @@
 foreach ($sistemas as $s) {
 	echo "<h2>{$s->nome}:</h2>";
 	echo "<p>{$s->descricao}</p>";
-	if ($s->custo_total != $s->custo_total_reduzido) 
+	if ($s->custo_total > $orcamento) 
 		echo "<p id='resultado-erro'>Infelizmente, seu orçamento não é suficiente para atender seus requisitos.</p>";
 	echo "<p class='custo'>Custo total: R$" . number_format($s->custo_total, 2, ',', '.') . "</p>";
 
